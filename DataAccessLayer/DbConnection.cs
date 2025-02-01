@@ -9,9 +9,9 @@ namespace DataAccessLayer
 {
     public class DbConnection
     {
-        private static string connectionString = "Server=localhost;Database=25_132230089;Uid=25_132230089;Pwd=!nif.ogr89ER;";
+        private static string connectionString = "Server=localhost:3306;Database=25_132230089;Uid=25_132230089;Pwd=!nif.ogr89ER;";
         private MySqlConnection connection;
-
+        
         public DbConnection()
         {
             connection = new MySqlConnection(connectionString);

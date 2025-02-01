@@ -13,7 +13,7 @@ namespace DataAccessLayer
     {
         public class DatabaseConnection
         {
-            private static string connectionString = "Server=localhost;Database=otel_rezervasyon;Uid=root;Pwd=;";
+            private static string connectionString = "Server=localhost:3306;Database=25_132230089;Uid=25_132230089;Pwd=!nif.ogr89ER;";
 
             public static MySqlConnection GetConnection()
             {
