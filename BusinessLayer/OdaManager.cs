@@ -14,6 +14,7 @@ namespace BusinessLayer
         // Veritabanı bağlantısını başlatıyoruz
         private DbConnection dbConnection;
 
+        // Constructor - sınıf oluşturulduğunda çalışır
         public OdaManager()
         {
             dbConnection = new DbConnection();
@@ -79,6 +80,111 @@ namespace BusinessLayer
                 // Hata durumunda boş liste döndürüyoruz
             }
             return odalar;
+        }
+
+        // Oda güncelleme metodu
+        public bool OdaGuncelle(Oda oda)
+        {
+            try
+            {
+                using (var conn = dbConnection.GetConnection())
+                {
+                    string query = "UPDATE Odalar SET OdaNumarasi=@odaNo, OdaTipi=@tip, Fiyat=@fiyat, Durum=@durum WHERE OdaID=@id";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                    // Parametreleri güvenli bir şekilde ekliyoruz
+                    cmd.Parameters.AddWithValue("@odaNo", oda.OdaNumarasi);
+                    cmd.Parameters.AddWithValue("@tip", oda.OdaTipi);
+                    cmd.Parameters.AddWithValue("@fiyat", oda.Fiyat);
+                    cmd.Parameters.AddWithValue("@durum", oda.Durum);
+                    cmd.Parameters.AddWithValue("@id", oda.OdaID);
+
+                    conn.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Oda silme metodu
+        public bool OdaSil(int odaID)
+        {
+            try
+            {
+                using (var conn = dbConnection.GetConnection())
+                {
+                    string query = "DELETE FROM Odalar WHERE OdaID=@id";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", odaID);
+
+                    conn.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Belirli bir odayı ID'ye göre getirme metodu
+        public Oda OdaGetir(int odaID)
+        {
+            try
+            {
+                using (var conn = dbConnection.GetConnection())
+                {
+                    string query = "SELECT * FROM Odalar WHERE OdaID=@id";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", odaID);
+
+                    conn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Oda
+                            {
+                                OdaID = Convert.ToInt32(reader["OdaID"]),
+                                OdaNumarasi = reader["OdaNumarasi"].ToString(),
+                                OdaTipi = reader["OdaTipi"].ToString(),
+                                Fiyat = Convert.ToDecimal(reader["Fiyat"]),
+                                Durum = Convert.ToBoolean(reader["Durum"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Hata durumunda null döndürüyoruz
+            }
+            return null;
+        }
+
+        // Oda durumunu güncelleme metodu (boş/dolu)
+        public bool OdaDurumuGuncelle(int odaID, bool yeniDurum)
+        {
+            try
+            {
+                using (var conn = dbConnection.GetConnection())
+                {
+                    string query = "UPDATE Odalar SET Durum=@durum WHERE OdaID=@id";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@durum", yeniDurum);
+                    cmd.Parameters.AddWithValue("@id", odaID);
+
+                    conn.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
