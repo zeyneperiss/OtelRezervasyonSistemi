@@ -96,6 +96,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="KullaniciDAL.cs" />
     <Compile Include="MusteriDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

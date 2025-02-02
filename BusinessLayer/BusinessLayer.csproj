@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="KullaniciManager.cs" />
     <Compile Include="MusteriManager.cs" />
     <Compile Include="OdaManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
