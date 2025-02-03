@@ -6,7 +6,7 @@ namespace DataAccessLayer
     public class DatabaseConnection
     {
         // MySQL bağlantı dizesi (Bağlantı bilgilerinizi buraya ekleyin)
-        private static string connectionString = "Server=127.0.0.1;Port=3306;Database=25_132230089;Uid=25_132230089;Pwd=!nif.ogr89ER;";
+        private static string connectionString = "Server=172.21.54.253;Database=25_132230089;Uid=25_132230089;Pwd=!nif.ogr89ER;";
 
         // MySQL bağlantı nesnesi
         private static MySqlConnection connection;
