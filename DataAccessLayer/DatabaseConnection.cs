@@ -22,7 +22,7 @@ namespace DataAccessLayer
 
                 
             }
-            catch (MySqlException ex)
+            catch (MySqlException ex) 
             {
                 switch (ex.Number)
                 {

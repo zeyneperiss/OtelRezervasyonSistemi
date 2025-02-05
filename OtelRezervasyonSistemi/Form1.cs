@@ -9,25 +9,54 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLayer;
 using EntityLayer;
-
+using MySql.Data.MySqlClient;
 namespace OtelRezervasyonSistemi
 {
     public partial class Form1 : Form
     {
         private MusteriManager musteriManager;
-        private OdaManager odaManager;
+        private BusinessLayer.OdaManager odaManager;
 
         public Form1()
         {
             InitializeComponent(); // Designer'daki kontroller burada başlatılır
             musteriManager = new MusteriManager(); // İş mantığı sınıfı başlatılır
-            odaManager = new OdaManager();
+            odaManager = new BusinessLayer.OdaManager();
+        }
 
-            // ComboBox'a oda tiplerini ekliyoruz
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // DataGridView ayarları
+            dgvOdalar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvOdalar.MultiSelect = false;
+            dgvOdalar.DataBindings.Clear();
+            dgvOdalar.AutoGenerateColumns = false;
+            dgvOdalar.Columns.Clear();
+
+            // Sütun tanımları
+            dgvOdalar.Columns.Add("OdaID", "Oda ID");
+            dgvOdalar.Columns.Add("OdaNumarasi", "Oda No");
+            dgvOdalar.Columns.Add("OdaTipi", "Oda Tipi");
+            dgvOdalar.Columns.Add("Fiyat", "Fiyat (TL)");
+            dgvOdalar.Columns.Add("Durum", "Müsait");
+
+            // DataPropertyName ayarları
+            dgvOdalar.Columns["OdaID"].DataPropertyName = "OdaID";
+            dgvOdalar.Columns["OdaNumarasi"].DataPropertyName = "OdaNumarasi";
+            dgvOdalar.Columns["OdaTipi"].DataPropertyName = "OdaTipi";
+            dgvOdalar.Columns["Fiyat"].DataPropertyName = "Fiyat";
+            dgvOdalar.Columns["Durum"].DataPropertyName = "Durum";
+
+            // ComboBox ayarları
+            cmbOdaTipi.Items.Clear();
             cmbOdaTipi.Items.AddRange(new string[] { "Standart", "Suit", "Deluxe" });
-            // Form yüklendiğinde odaları listeleyeceğiz
+            cmbOdaTipi.SelectedIndex = 0;
+
             OdalariListele();
         }
+
+
 
         private void OdalariListele()
         {
@@ -35,7 +64,18 @@ namespace OtelRezervasyonSistemi
             try
             {
                 var odalar = odaManager.TumOdalariGetir();
+                dgvOdalar.DataSource = null;
                 dgvOdalar.DataSource = odalar;
+                Console.WriteLine($"Listelenen oda sayısı: {odalar.Count}"); // Debug için
+                //var odalar = odaManager.TumOdalariGetir();
+                ////dgvOdalar.DataSource = odalar;
+                //if (odalar != null && odalar.Any())
+                //{
+                //    dgvOdalar.DataSource = null; // Önce mevcut veriyi temizle
+                //    dgvOdalar.DataSource = odalar; // Yeni veriyi ata
+                //    dgvOdalar.Refresh(); // DataGridView'ı yenile
+                //}
+
             }
             catch (Exception ex)
             {
@@ -95,6 +135,35 @@ namespace OtelRezervasyonSistemi
                 MessageBox.Show("Oda eklenirken hata oluştu!");
             }
         }
+        //private void btnOdaSil_Click(object sender, EventArgs e)
+        //{
+        //    if (dgvOdalar.SelectedRows.Count == 0)
+        //    {
+        //        MessageBox.Show("Lütfen silinecek odayı seçin.");
+        //        return;
+        //    }
+
+        //    var selectedRow = dgvOdalar.SelectedRows[0];
+        //    var odaID = Convert.ToInt32(selectedRow.Cells["OdaID"].Value);
+
+        //    var result = MessageBox.Show("Bu odayı silmek istediğinizden emin misiniz?",
+        //                               "Silme Onayı",
+        //                               MessageBoxButtons.YesNo,
+        //                               MessageBoxIcon.Question);
+
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        if (odaManager.OdaSil(odaID))
+        //        {
+        //            MessageBox.Show("Oda başarıyla silindi.");
+        //            OdalariListele();
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Oda silinirken bir hata oluştu.");
+        //        }
+        //    }
+        //}
 
         private void btnMusteriEkle_Click_1(object sender, EventArgs e)
         {
@@ -143,6 +212,91 @@ namespace OtelRezervasyonSistemi
             else
             {
                 MessageBox.Show("Müşteri eklenirken bir hata oluştu.");
+            }
+        }
+
+        private void btnOdaSil_Click_1(object sender, EventArgs e)
+        {
+            if (dgvOdalar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen silinecek odayı seçin.");
+                return;
+            }
+
+            var selectedRow = dgvOdalar.SelectedRows[0];
+            var odaID = Convert.ToInt32(selectedRow.Cells["OdaID"].Value);
+
+            var result = MessageBox.Show("Bu odayı silmek istediğinizden emin misiniz?",
+                                       "Silme Onayı",
+                                       MessageBoxButtons.YesNo,
+                                       MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                if (odaManager.OdaSil(odaID))
+                {
+                    MessageBox.Show("Oda başarıyla silindi.");
+                    OdalariListele();
+                }
+                else
+                {
+                    MessageBox.Show("Oda silinirken bir hata oluştu.");
+                }
+            }
+        }
+
+        private void dgvOdalar_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvOdalar.SelectedRows.Count > 0)
+            {
+                var selectedRow = dgvOdalar.SelectedRows[0];
+                txtOdaNumarasi.Text = selectedRow.Cells["OdaNumarasi"].Value.ToString();
+                cmbOdaTipi.Text = selectedRow.Cells["OdaTipi"].Value.ToString();
+                txtFiyat.Text = selectedRow.Cells["Fiyat"].Value.ToString();
+            }
+        }
+
+        private void btnOdaGuncelle_Click(object sender, EventArgs e)
+        {
+            if (dgvOdalar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen güncellenecek odayı seçin.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtOdaNumarasi.Text) ||
+                string.IsNullOrWhiteSpace(txtFiyat.Text))
+            {
+                MessageBox.Show("Tüm alanları doldurun!");
+                return;
+            }
+
+            if (!decimal.TryParse(txtFiyat.Text, out decimal fiyat))
+            {
+                MessageBox.Show("Geçerli bir fiyat girin!");
+                return;
+            }
+
+            var selectedRow = dgvOdalar.SelectedRows[0];
+            var odaID = Convert.ToInt32(selectedRow.Cells["OdaID"].Value);
+
+            var guncelOda = new Oda
+            {
+                OdaID = odaID,
+                OdaNumarasi = txtOdaNumarasi.Text,
+                OdaTipi = cmbOdaTipi.SelectedItem.ToString(),
+                Fiyat = fiyat,
+                Durum = true
+            };
+
+            if (odaManager.OdaGuncelle(guncelOda))
+            {
+                MessageBox.Show("Oda başarıyla güncellendi!");
+                OdalariListele();
+            }
+            else
+            {
+                MessageBox.Show("Güncelleme sırasında hata oluştu!");
             }
         }
     }

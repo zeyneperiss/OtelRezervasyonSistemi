@@ -39,6 +39,7 @@ namespace OtelRezervasyonSistemi
             this.txtSoyad = new System.Windows.Forms.TextBox();
             this.txtAd = new System.Windows.Forms.TextBox();
             this.tabOda = new System.Windows.Forms.TabPage();
+            this.btnOdaSil = new System.Windows.Forms.Button();
             this.dgvOdalar = new System.Windows.Forms.DataGridView();
             this.OdaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OdaNumarasi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +47,7 @@ namespace OtelRezervasyonSistemi
             this.Fiyat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpOdaEkle = new System.Windows.Forms.GroupBox();
+            this.btnOdaGuncelle = new System.Windows.Forms.Button();
             this.btnOdaEkle = new System.Windows.Forms.Button();
             this.txtFiyat = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,7 +76,7 @@ namespace OtelRezervasyonSistemi
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 450);
+            this.tabControl1.Size = new System.Drawing.Size(1086, 662);
             this.tabControl1.TabIndex = 0;
             // 
             // tabMusteri
@@ -92,7 +94,7 @@ namespace OtelRezervasyonSistemi
             this.tabMusteri.Controls.Add(this.txtAd);
             this.tabMusteri.Location = new System.Drawing.Point(4, 29);
             this.tabMusteri.Name = "tabMusteri";
-            this.tabMusteri.Size = new System.Drawing.Size(792, 417);
+            this.tabMusteri.Size = new System.Drawing.Size(1078, 629);
             this.tabMusteri.TabIndex = 0;
             this.tabMusteri.Text = "Müşteri İşlemleri";
             // 
@@ -188,16 +190,28 @@ namespace OtelRezervasyonSistemi
             // 
             // tabOda
             // 
+            this.tabOda.Controls.Add(this.btnOdaSil);
             this.tabOda.Controls.Add(this.dgvOdalar);
             this.tabOda.Controls.Add(this.grpOdaEkle);
             this.tabOda.Location = new System.Drawing.Point(4, 29);
             this.tabOda.Name = "tabOda";
-            this.tabOda.Size = new System.Drawing.Size(792, 417);
+            this.tabOda.Size = new System.Drawing.Size(1078, 629);
             this.tabOda.TabIndex = 1;
             this.tabOda.Text = "Oda İşlemleri";
             // 
+            // btnOdaSil
+            // 
+            this.btnOdaSil.Location = new System.Drawing.Point(763, 570);
+            this.btnOdaSil.Name = "btnOdaSil";
+            this.btnOdaSil.Size = new System.Drawing.Size(93, 37);
+            this.btnOdaSil.TabIndex = 4;
+            this.btnOdaSil.Text = "Oda Sil";
+            this.btnOdaSil.UseVisualStyleBackColor = true;
+            this.btnOdaSil.Click += new System.EventHandler(this.btnOdaSil_Click_1);
+            // 
             // dgvOdalar
             // 
+            this.dgvOdalar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvOdalar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOdalar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OdaID,
@@ -206,51 +220,56 @@ namespace OtelRezervasyonSistemi
             this.Fiyat,
             this.Durum});
             this.dgvOdalar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgvOdalar.Location = new System.Drawing.Point(0, 237);
+            this.dgvOdalar.Location = new System.Drawing.Point(0, 449);
+            this.dgvOdalar.MultiSelect = false;
             this.dgvOdalar.Name = "dgvOdalar";
+            this.dgvOdalar.ReadOnly = true;
             this.dgvOdalar.RowHeadersWidth = 62;
             this.dgvOdalar.RowTemplate.Height = 28;
-            this.dgvOdalar.Size = new System.Drawing.Size(792, 180);
+            this.dgvOdalar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOdalar.Size = new System.Drawing.Size(1078, 180);
             this.dgvOdalar.TabIndex = 3;
+            this.dgvOdalar.SelectionChanged += new System.EventHandler(this.dgvOdalar_SelectionChanged);
             // 
             // OdaID
             // 
-            this.OdaID.HeaderText = "OdaID";
+            this.OdaID.HeaderText = "Oda ID";
             this.OdaID.MinimumWidth = 8;
             this.OdaID.Name = "OdaID";
+            this.OdaID.ReadOnly = true;
             this.OdaID.Visible = false;
-            this.OdaID.Width = 150;
             // 
             // OdaNumarasi
             // 
-            this.OdaNumarasi.HeaderText = "Oda Numarası";
+            this.OdaNumarasi.HeaderText = "Oda No";
             this.OdaNumarasi.MinimumWidth = 8;
             this.OdaNumarasi.Name = "OdaNumarasi";
-            this.OdaNumarasi.Width = 150;
+            this.OdaNumarasi.ReadOnly = true;
             // 
             // OdaTipi
             // 
             this.OdaTipi.HeaderText = "Oda Tipi";
             this.OdaTipi.MinimumWidth = 8;
             this.OdaTipi.Name = "OdaTipi";
-            this.OdaTipi.Width = 150;
+            this.OdaTipi.ReadOnly = true;
             // 
             // Fiyat
             // 
-            this.Fiyat.HeaderText = "Fiyat";
+            this.Fiyat.HeaderText = "Fiyat TL";
             this.Fiyat.MinimumWidth = 8;
             this.Fiyat.Name = "Fiyat";
-            this.Fiyat.Width = 150;
+            this.Fiyat.ReadOnly = true;
             // 
             // Durum
             // 
-            this.Durum.HeaderText = "Durum";
+            this.Durum.HeaderText = "Müsait";
             this.Durum.MinimumWidth = 8;
             this.Durum.Name = "Durum";
-            this.Durum.Width = 150;
+            this.Durum.ReadOnly = true;
             // 
             // grpOdaEkle
             // 
+            this.grpOdaEkle.Controls.Add(this.btnOdaGuncelle);
             this.grpOdaEkle.Controls.Add(this.btnOdaEkle);
             this.grpOdaEkle.Controls.Add(this.txtFiyat);
             this.grpOdaEkle.Controls.Add(this.label8);
@@ -264,6 +283,16 @@ namespace OtelRezervasyonSistemi
             this.grpOdaEkle.TabIndex = 2;
             this.grpOdaEkle.TabStop = false;
             this.grpOdaEkle.Text = "Oda Bilgileri";
+            // 
+            // btnOdaGuncelle
+            // 
+            this.btnOdaGuncelle.Location = new System.Drawing.Point(6, 150);
+            this.btnOdaGuncelle.Name = "btnOdaGuncelle";
+            this.btnOdaGuncelle.Size = new System.Drawing.Size(100, 30);
+            this.btnOdaGuncelle.TabIndex = 5;
+            this.btnOdaGuncelle.Text = "Güncelle";
+            this.btnOdaGuncelle.UseVisualStyleBackColor = true;
+            this.btnOdaGuncelle.Click += new System.EventHandler(this.btnOdaGuncelle_Click);
             // 
             // btnOdaEkle
             // 
@@ -333,7 +362,7 @@ namespace OtelRezervasyonSistemi
             this.tabRezervasyon.Controls.Add(this.txtRezervasyonNo);
             this.tabRezervasyon.Location = new System.Drawing.Point(4, 29);
             this.tabRezervasyon.Name = "tabRezervasyon";
-            this.tabRezervasyon.Size = new System.Drawing.Size(792, 417);
+            this.tabRezervasyon.Size = new System.Drawing.Size(1078, 629);
             this.tabRezervasyon.TabIndex = 2;
             this.tabRezervasyon.Text = "Rezervasyon İşlemleri";
             // 
@@ -360,10 +389,11 @@ namespace OtelRezervasyonSistemi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1086, 662);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Otel Rezervasyon Sistemi";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabMusteri.ResumeLayout(false);
             this.tabMusteri.PerformLayout();
@@ -406,5 +436,7 @@ namespace OtelRezervasyonSistemi
         private DataGridViewTextBoxColumn OdaTipi;
         private DataGridViewTextBoxColumn Fiyat;
         private DataGridViewTextBoxColumn Durum;
+        private Button btnOdaSil;
+        private Button btnOdaGuncelle;
     }
 }

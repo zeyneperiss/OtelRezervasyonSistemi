@@ -6,43 +6,45 @@ using System.Threading.Tasks;
 using EntityLayer;
 using DataAccessLayer;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace BusinessLayer
 {
     public class OdaManager
     {
         // Veritabanı bağlantısını başlatıyoruz
-        private DbConnection dbConnection;
+        
 
         // Constructor - sınıf oluşturulduğunda çalışır
-        public OdaManager()
-        {
-            dbConnection = new DbConnection();
-        }
+        
 
         // Yeni oda ekleme metodu
         public bool OdaEkle(Oda oda)
         {
             try
             {
-                using (var conn = dbConnection.GetConnection())
+                using (var conn = DatabaseConnection.GetConnection())
                 {
                     string query = "INSERT INTO Odalar (OdaNumarasi, OdaTipi, Fiyat, Durum) VALUES (@odaNo, @tip, @fiyat, @durum)";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@odaNo", oda.OdaNumarasi);
+                        cmd.Parameters.AddWithValue("@tip", oda.OdaTipi);
+                        cmd.Parameters.AddWithValue("@fiyat", oda.Fiyat);
+                        cmd.Parameters.AddWithValue("@durum", oda.Durum);
 
-                    // Parametreleri güvenli bir şekilde ekliyoruz
-                    cmd.Parameters.AddWithValue("@odaNo", oda.OdaNumarasi);
-                    cmd.Parameters.AddWithValue("@tip", oda.OdaTipi);
-                    cmd.Parameters.AddWithValue("@fiyat", oda.Fiyat);
-                    cmd.Parameters.AddWithValue("@durum", oda.Durum);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    return true;
+                        return cmd.ExecuteNonQuery() > 0; // conn.Open() satırını kaldırdık
+                    }
                 }
             }
-            catch
+            //catch (MySqlException ex)
+            //{
+            //    System.Windows.Forms.MessageBox.Show($"MySQL Hatası: {ex.Number} - {ex.Message}");
+            //    return false;
+            //}
+            catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show($"Bir hata oluştu: {ex.Message}");
                 return false;
             }
         }
@@ -53,31 +55,31 @@ namespace BusinessLayer
             List<Oda> odalar = new List<Oda>();
             try
             {
-                using (var conn = dbConnection.GetConnection())
+                using (var conn = DatabaseConnection.GetConnection())
                 {
                     string query = "SELECT * FROM Odalar";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-
-                    conn.Open();
-                    using (var reader = cmd.ExecuteReader())
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        while (reader.Read())
+                        using (var reader = cmd.ExecuteReader())
                         {
-                            odalar.Add(new Oda
+                            while (reader.Read())
                             {
-                                OdaID = Convert.ToInt32(reader["OdaID"]),
-                                OdaNumarasi = reader["OdaNumarasi"].ToString(),
-                                OdaTipi = reader["OdaTipi"].ToString(),
-                                Fiyat = Convert.ToDecimal(reader["Fiyat"]),
-                                Durum = Convert.ToBoolean(reader["Durum"])
-                            });
+                                odalar.Add(new Oda
+                                {
+                                    OdaID = Convert.ToInt32(reader["OdaID"]),
+                                    OdaNumarasi = reader["OdaNumarasi"].ToString(),
+                                    OdaTipi = reader["OdaTipi"].ToString(),
+                                    Fiyat = Convert.ToDecimal(reader["Fiyat"]),
+                                    Durum = Convert.ToBoolean(reader["Durum"])
+                                });
+                            }
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Hata durumunda boş liste döndürüyoruz
+                MessageBox.Show($"Veri çekme hatası: {ex.Message}");
             }
             return odalar;
         }
@@ -87,24 +89,24 @@ namespace BusinessLayer
         {
             try
             {
-                using (var conn = dbConnection.GetConnection())
+                using (var conn = DatabaseConnection.GetConnection())
                 {
                     string query = "UPDATE Odalar SET OdaNumarasi=@odaNo, OdaTipi=@tip, Fiyat=@fiyat, Durum=@durum WHERE OdaID=@id";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@odaNo", oda.OdaNumarasi);
+                        cmd.Parameters.AddWithValue("@tip", oda.OdaTipi);
+                        cmd.Parameters.AddWithValue("@fiyat", oda.Fiyat);
+                        cmd.Parameters.AddWithValue("@durum", oda.Durum);
+                        cmd.Parameters.AddWithValue("@id", oda.OdaID);
 
-                    // Parametreleri güvenli bir şekilde ekliyoruz
-                    cmd.Parameters.AddWithValue("@odaNo", oda.OdaNumarasi);
-                    cmd.Parameters.AddWithValue("@tip", oda.OdaTipi);
-                    cmd.Parameters.AddWithValue("@fiyat", oda.Fiyat);
-                    cmd.Parameters.AddWithValue("@durum", oda.Durum);
-                    cmd.Parameters.AddWithValue("@id", oda.OdaID);
-
-                    conn.Open();
-                    return cmd.ExecuteNonQuery() > 0;
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"Güncelleme hatası: {ex.Message}");
                 return false;
             }
         }
@@ -114,18 +116,19 @@ namespace BusinessLayer
         {
             try
             {
-                using (var conn = dbConnection.GetConnection())
+                using (var conn = DatabaseConnection.GetConnection())
                 {
                     string query = "DELETE FROM Odalar WHERE OdaID=@id";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", odaID);
-
-                    conn.Open();
-                    return cmd.ExecuteNonQuery() > 0;
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", odaID);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"Silme hatası: {ex.Message}");
                 return false;
             }
         }
@@ -135,7 +138,7 @@ namespace BusinessLayer
         {
             try
             {
-                using (var conn = dbConnection.GetConnection())
+                using (var conn = DatabaseConnection.GetConnection())
                 {
                     string query = "SELECT * FROM Odalar WHERE OdaID=@id";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
@@ -170,7 +173,7 @@ namespace BusinessLayer
         {
             try
             {
-                using (var conn = dbConnection.GetConnection())
+                using (var conn = DatabaseConnection.GetConnection())
                 {
                     string query = "UPDATE Odalar SET Durum=@durum WHERE OdaID=@id";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
