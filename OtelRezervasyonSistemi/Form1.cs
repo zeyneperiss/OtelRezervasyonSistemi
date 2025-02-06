@@ -16,13 +16,16 @@ namespace OtelRezervasyonSistemi
     {
         private MusteriManager musteriManager;
         private BusinessLayer.OdaManager odaManager;
+        private RezervasyonManager rezervasyonManager;
 
         public Form1()
         {
             InitializeComponent(); // Designer'daki kontroller burada başlatılır
             musteriManager = new MusteriManager(); // İş mantığı sınıfı başlatılır
             odaManager = new BusinessLayer.OdaManager();
+            rezervasyonManager = new RezervasyonManager();
         }
+
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -53,7 +56,63 @@ namespace OtelRezervasyonSistemi
             cmbOdaTipi.Items.AddRange(new string[] { "Standart", "Suit", "Deluxe" });
             cmbOdaTipi.SelectedIndex = 0;
 
+            // Müşterileri ComboBox'a yükle
+            var musteriler = musteriManager.TumMusterileriGetir();
+            cmbMusteriler.DataSource = musteriler;
+            cmbMusteriler.DisplayMember = "Ad";
+            cmbMusteriler.ValueMember = "MusteriID";
+
+            // Odaları ComboBox'a yükle
+            var odalar = odaManager.TumOdalariGetir();
+            cmbOdalar.DataSource = odalar;
+            cmbOdalar.DisplayMember = "OdaNumarasi";
+            cmbOdalar.ValueMember = "OdaID";
+
+            // Rezervasyon DataGridView ayarları
+            dgvRezervasyonlar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRezervasyonlar.MultiSelect = false;
+            dgvRezervasyonlar.DataBindings.Clear();
+            dgvRezervasyonlar.AutoGenerateColumns = false;
+            dgvRezervasyonlar.Columns.Clear();
+
+            // Rezervasyon sütun tanımları
+            dgvRezervasyonlar.Columns.Add("RezervasyonID", "Rezervasyon ID");
+            dgvRezervasyonlar.Columns.Add("MusteriID", "Müşteri ID");
+            dgvRezervasyonlar.Columns.Add("OdaID", "Oda No");
+            dgvRezervasyonlar.Columns.Add("GirisTarihi", "Giriş Tarihi");
+            dgvRezervasyonlar.Columns.Add("CikisTarihi", "Çıkış Tarihi");
+            dgvRezervasyonlar.Columns.Add("Durum", "Rezervasyon Durumu");  // Başlığı değiştirdik
+
+
+            // DataPropertyName ayarları
+            dgvRezervasyonlar.Columns["RezervasyonID"].DataPropertyName = "RezervasyonID";
+            dgvRezervasyonlar.Columns["MusteriID"].DataPropertyName = "MusteriID";
+            dgvRezervasyonlar.Columns["OdaID"].DataPropertyName = "OdaID";
+            dgvRezervasyonlar.Columns["GirisTarihi"].DataPropertyName = "GirisTarihi";
+            dgvRezervasyonlar.Columns["CikisTarihi"].DataPropertyName = "CikisTarihi";
+            dgvRezervasyonlar.Columns["Durum"].DataPropertyName = "DurumText";  // Yeni özelliği kullan
+
+            // DataGridView sütun ayarları
+            dgvRezervasyonlar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            foreach (DataGridViewColumn column in dgvRezervasyonlar.Columns)
+            {
+                switch (column.Name)
+                {
+                    case "RezervasyonID":
+                    case "MusteriID":
+                    case "OdaID":
+                    case "Durum":
+                        column.Width = 100;
+                        break;
+                    case "GirisTarihi":
+                    case "CikisTarihi":
+                        column.Width = 150;
+                        break;
+                }
+            }
+
             OdalariListele();
+            RezervasyonlariListele();
         }
 
 
@@ -299,5 +358,171 @@ namespace OtelRezervasyonSistemi
                 MessageBox.Show("Güncelleme sırasında hata oluştu!");
             }
         }
+        private void RezervasyonlariListele()
+        {
+            try
+            {
+                var rezervasyonlar = rezervasyonManager.TumRezervasyonlariGetir();
+                dgvRezervasyonlar.DataSource = rezervasyonlar;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyonlar listelenirken hata oluştu: " + ex.Message);
+            }
+        }
+        private bool OdaMusaitMi(int odaID, DateTime girisTarihi, DateTime cikisTarihi)
+        {
+            try
+            {
+                // Bu kontrolü RezervasyonManager'a taşıyacağız, şimdilik burada yapıyoruz
+                var tumRezervasyonlar = rezervasyonManager.TumRezervasyonlariGetir();
+
+                // Sadece aktif ve aynı odaya ait rezervasyonları filtrele
+                var odaRezervasyonlari = tumRezervasyonlar.Where(r =>
+                    r.OdaID == odaID &&
+                    r.Durum == true);  // Sadece aktif rezervasyonlar
+
+                foreach (var rezervasyon in odaRezervasyonlari)
+                {
+                    // Tarih çakışması kontrolü
+                    if ((girisTarihi >= rezervasyon.GirisTarihi && girisTarihi < rezervasyon.CikisTarihi) ||
+                        (cikisTarihi > rezervasyon.GirisTarihi && cikisTarihi <= rezervasyon.CikisTarihi) ||
+                        (girisTarihi <= rezervasyon.GirisTarihi && cikisTarihi >= rezervasyon.CikisTarihi))
+                    {
+                        return false; // Tarih çakışması var
+                    }
+                }
+
+                return true; // Tarih çakışması yok
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Oda müsaitlik kontrolü sırasında hata: {ex.Message}");
+                return false;
+            }
+        }
+
+        private void btnRezervasyonYap_Click(object sender, EventArgs e)
+        {
+            if (cmbMusteriler.SelectedValue == null || cmbOdalar.SelectedValue == null)
+            {
+                MessageBox.Show("Lütfen müşteri ve oda seçin.");
+                return;
+            }
+
+            // Tarih kontrollerini yap
+            if (!TarihKontrolleriGecerli(dtpGirisTarihi.Value, dtpCikisTarihi.Value))
+            {
+                return; // Tarih kontrolleri başarısızsa işlemi sonlandır
+            }
+
+            // Seçilen tarihler için odanın müsaitlik kontrolü
+            int secilenOdaID = Convert.ToInt32(cmbOdalar.SelectedValue);
+            if (!OdaMusaitMi(secilenOdaID, dtpGirisTarihi.Value, dtpCikisTarihi.Value))
+            {
+                MessageBox.Show("Seçilen tarihler için oda müsait değil!",
+                               "Oda Dolu",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            var rezervasyon = new Rezervasyon
+            {
+                MusteriID = Convert.ToInt32(cmbMusteriler.SelectedValue),
+                OdaID = Convert.ToInt32(cmbOdalar.SelectedValue),
+                GirisTarihi = dtpGirisTarihi.Value,
+                CikisTarihi = dtpCikisTarihi.Value,
+                Durum = true
+            };
+
+            if (rezervasyonManager.RezervasyonEkle(rezervasyon))
+            {
+                MessageBox.Show("Rezervasyon başarıyla yapıldı!");
+                RezervasyonlariListele();
+                OdalariListele(); // Oda listesini de yenile (durumları güncellendi)
+
+                // ComboBox'ları yenile
+                var odalar = odaManager.TumOdalariGetir();
+                cmbOdalar.DataSource = odalar;
+            }
+            else
+            {
+                MessageBox.Show("Rezervasyon yapılırken hata oluştu!");
+            }
+
+        }
+
+        private void btnRezervasyonİptal_Click(object sender, EventArgs e)
+        {
+            if (dgvRezervasyonlar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen iptal edilecek rezervasyonu seçin.");
+                return;
+            }
+
+            var selectedRow = dgvRezervasyonlar.SelectedRows[0];
+            var rezervasyonID = Convert.ToInt32(selectedRow.Cells["RezervasyonID"].Value);
+
+            var result = MessageBox.Show("Bu rezervasyonu iptal etmek istediğinizden emin misiniz?",
+                                       "İptal Onayı",
+                                       MessageBoxButtons.YesNo,
+                                       MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                if (rezervasyonManager.RezervasyonIptal(rezervasyonID))
+                {
+                    MessageBox.Show("Rezervasyon başarıyla iptal edildi.");
+                    RezervasyonlariListele(); // Listeyi güncelle
+                    OdalariListele(); // Oda durumlarını güncelle
+                }
+                else
+                {
+                    MessageBox.Show("Rezervasyon iptal edilirken bir hata oluştu.");
+                }
+            }
+        }
+
+        private bool TarihKontrolleriGecerli(DateTime girisTarihi, DateTime cikisTarihi)
+        {
+            // Bugünün tarihini al (saat bilgisi olmadan)
+            DateTime bugun = DateTime.Today;
+
+            // 1. Kontrol: Giriş tarihi bugünden önce olmamalı
+            if (girisTarihi.Date < bugun)
+            {
+                MessageBox.Show("Geçmiş bir tarihe rezervasyon yapılamaz!",
+                               "Hatalı Tarih",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 2. Kontrol: Çıkış tarihi giriş tarihinden önce olmamalı
+            if (cikisTarihi.Date <= girisTarihi.Date)
+            {
+                MessageBox.Show("Çıkış tarihi, giriş tarihinden sonra olmalıdır!",
+                               "Hatalı Tarih",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 3. Kontrol: Maksimum rezervasyon süresi (örneğin 30 gün)
+            TimeSpan kalisSuresi = cikisTarihi.Date - girisTarihi.Date;
+            if (kalisSuresi.TotalDays > 30)
+            {
+                MessageBox.Show("Rezervasyon süresi 30 günden fazla olamaz!",
+                               "Uzun Süre",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

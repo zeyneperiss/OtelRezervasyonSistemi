@@ -13,6 +13,10 @@ namespace EntityLayer
         public int OdaID { get; set; }
         public DateTime GirisTarihi { get; set; }
         public DateTime CikisTarihi { get; set; }
-        public string Durum { get; set; }
+        public decimal ToplamFiyat { get; set; }
+        public bool Durum { get; set; }  // Aktif/İptal 
+        public string MusteriAdi { get; set; }
+        public string OdaNumarasi { get; set; }
+        public string DurumText { get; set; }  // Durumun metin halini tutacak yeni özellik
     }
 }

@@ -56,15 +56,35 @@ namespace OtelRezervasyonSistemi
             this.label6 = new System.Windows.Forms.Label();
             this.txtOdaNumarasi = new System.Windows.Forms.TextBox();
             this.tabRezervasyon = new System.Windows.Forms.TabPage();
-            this.txtRezervasyonNo = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.grpRezervasyonBilgileri = new System.Windows.Forms.GroupBox();
+            this.lblCikisTarihi = new System.Windows.Forms.Label();
+            this.lblGirisTarihi = new System.Windows.Forms.Label();
+            this.lblMusteri = new System.Windows.Forms.Label();
+            this.cmbOdalar = new System.Windows.Forms.ComboBox();
+            this.cmbMusteriler = new System.Windows.Forms.ComboBox();
+            this.dtpCikisTarihi = new System.Windows.Forms.DateTimePicker();
+            this.lblOda = new System.Windows.Forms.Label();
+            this.dtpGirisTarihi = new System.Windows.Forms.DateTimePicker();
+            this.btnRezervasyonYap = new System.Windows.Forms.Button();
+            this.dgvRezervasyonlar = new System.Windows.Forms.DataGridView();
+            this.RezervasyonId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Musteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Oda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.girisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cikisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rezervasyonDurum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnRezervasyonİptal = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabMusteri.SuspendLayout();
             this.tabOda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdalar)).BeginInit();
             this.grpOdaEkle.SuspendLayout();
             this.tabRezervasyon.SuspendLayout();
+            this.grpRezervasyonBilgileri.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -201,7 +221,7 @@ namespace OtelRezervasyonSistemi
             // 
             // btnOdaSil
             // 
-            this.btnOdaSil.Location = new System.Drawing.Point(763, 570);
+            this.btnOdaSil.Location = new System.Drawing.Point(948, 345);
             this.btnOdaSil.Name = "btnOdaSil";
             this.btnOdaSil.Size = new System.Drawing.Size(93, 37);
             this.btnOdaSil.TabIndex = 4;
@@ -359,19 +379,188 @@ namespace OtelRezervasyonSistemi
             // 
             // tabRezervasyon
             // 
-            this.tabRezervasyon.Controls.Add(this.txtRezervasyonNo);
+            this.tabRezervasyon.Controls.Add(this.btnRezervasyonİptal);
+            this.tabRezervasyon.Controls.Add(this.label12);
+            this.tabRezervasyon.Controls.Add(this.grpRezervasyonBilgileri);
+            this.tabRezervasyon.Controls.Add(this.btnRezervasyonYap);
+            this.tabRezervasyon.Controls.Add(this.dgvRezervasyonlar);
             this.tabRezervasyon.Location = new System.Drawing.Point(4, 29);
             this.tabRezervasyon.Name = "tabRezervasyon";
             this.tabRezervasyon.Size = new System.Drawing.Size(1078, 629);
             this.tabRezervasyon.TabIndex = 2;
             this.tabRezervasyon.Text = "Rezervasyon İşlemleri";
             // 
-            // txtRezervasyonNo
+            // label12
             // 
-            this.txtRezervasyonNo.Location = new System.Drawing.Point(0, 0);
-            this.txtRezervasyonNo.Name = "txtRezervasyonNo";
-            this.txtRezervasyonNo.Size = new System.Drawing.Size(100, 26);
-            this.txtRezervasyonNo.TabIndex = 1;
+            this.label12.Location = new System.Drawing.Point(0, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(100, 23);
+            this.label12.TabIndex = 0;
+            // 
+            // grpRezervasyonBilgileri
+            // 
+            this.grpRezervasyonBilgileri.Controls.Add(this.lblCikisTarihi);
+            this.grpRezervasyonBilgileri.Controls.Add(this.lblGirisTarihi);
+            this.grpRezervasyonBilgileri.Controls.Add(this.lblMusteri);
+            this.grpRezervasyonBilgileri.Controls.Add(this.cmbOdalar);
+            this.grpRezervasyonBilgileri.Controls.Add(this.cmbMusteriler);
+            this.grpRezervasyonBilgileri.Controls.Add(this.dtpCikisTarihi);
+            this.grpRezervasyonBilgileri.Controls.Add(this.lblOda);
+            this.grpRezervasyonBilgileri.Controls.Add(this.dtpGirisTarihi);
+            this.grpRezervasyonBilgileri.Location = new System.Drawing.Point(20, 20);
+            this.grpRezervasyonBilgileri.Name = "grpRezervasyonBilgileri";
+            this.grpRezervasyonBilgileri.Size = new System.Drawing.Size(600, 200);
+            this.grpRezervasyonBilgileri.TabIndex = 9;
+            this.grpRezervasyonBilgileri.TabStop = false;
+            this.grpRezervasyonBilgileri.Text = "Rezervasyon Bilgileri";
+            // 
+            // lblCikisTarihi
+            // 
+            this.lblCikisTarihi.AutoSize = true;
+            this.lblCikisTarihi.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCikisTarihi.Location = new System.Drawing.Point(9, 158);
+            this.lblCikisTarihi.Name = "lblCikisTarihi";
+            this.lblCikisTarihi.Size = new System.Drawing.Size(93, 25);
+            this.lblCikisTarihi.TabIndex = 13;
+            this.lblCikisTarihi.Text = "Çıkış Tarihi";
+            // 
+            // lblGirisTarihi
+            // 
+            this.lblGirisTarihi.AutoSize = true;
+            this.lblGirisTarihi.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGirisTarihi.Location = new System.Drawing.Point(11, 118);
+            this.lblGirisTarihi.Name = "lblGirisTarihi";
+            this.lblGirisTarihi.Size = new System.Drawing.Size(91, 25);
+            this.lblGirisTarihi.TabIndex = 12;
+            this.lblGirisTarihi.Text = "Giriş Tarihi";
+            // 
+            // lblMusteri
+            // 
+            this.lblMusteri.AutoSize = true;
+            this.lblMusteri.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMusteri.Location = new System.Drawing.Point(9, 78);
+            this.lblMusteri.Name = "lblMusteri";
+            this.lblMusteri.Size = new System.Drawing.Size(71, 25);
+            this.lblMusteri.TabIndex = 10;
+            this.lblMusteri.Text = "Müşteri";
+            // 
+            // cmbOdalar
+            // 
+            this.cmbOdalar.FormattingEnabled = true;
+            this.cmbOdalar.Location = new System.Drawing.Point(108, 30);
+            this.cmbOdalar.Name = "cmbOdalar";
+            this.cmbOdalar.Size = new System.Drawing.Size(121, 28);
+            this.cmbOdalar.TabIndex = 6;
+            // 
+            // cmbMusteriler
+            // 
+            this.cmbMusteriler.FormattingEnabled = true;
+            this.cmbMusteriler.Location = new System.Drawing.Point(108, 75);
+            this.cmbMusteriler.Name = "cmbMusteriler";
+            this.cmbMusteriler.Size = new System.Drawing.Size(135, 28);
+            this.cmbMusteriler.TabIndex = 7;
+            // 
+            // dtpCikisTarihi
+            // 
+            this.dtpCikisTarihi.Location = new System.Drawing.Point(108, 157);
+            this.dtpCikisTarihi.Name = "dtpCikisTarihi";
+            this.dtpCikisTarihi.Size = new System.Drawing.Size(200, 26);
+            this.dtpCikisTarihi.TabIndex = 5;
+            // 
+            // lblOda
+            // 
+            this.lblOda.AutoSize = true;
+            this.lblOda.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOda.Location = new System.Drawing.Point(20, 30);
+            this.lblOda.Name = "lblOda";
+            this.lblOda.Size = new System.Drawing.Size(46, 25);
+            this.lblOda.TabIndex = 11;
+            this.lblOda.Text = "Oda";
+            // 
+            // dtpGirisTarihi
+            // 
+            this.dtpGirisTarihi.Location = new System.Drawing.Point(108, 118);
+            this.dtpGirisTarihi.Name = "dtpGirisTarihi";
+            this.dtpGirisTarihi.Size = new System.Drawing.Size(200, 26);
+            this.dtpGirisTarihi.TabIndex = 4;
+            // 
+            // btnRezervasyonYap
+            // 
+            this.btnRezervasyonYap.Location = new System.Drawing.Point(471, 242);
+            this.btnRezervasyonYap.Name = "btnRezervasyonYap";
+            this.btnRezervasyonYap.Size = new System.Drawing.Size(149, 56);
+            this.btnRezervasyonYap.TabIndex = 8;
+            this.btnRezervasyonYap.Text = "Rezervasyon Yap";
+            this.btnRezervasyonYap.UseVisualStyleBackColor = true;
+            this.btnRezervasyonYap.Click += new System.EventHandler(this.btnRezervasyonYap_Click);
+            // 
+            // dgvRezervasyonlar
+            // 
+            this.dgvRezervasyonlar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRezervasyonlar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRezervasyonlar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RezervasyonId,
+            this.Musteri,
+            this.Oda,
+            this.girisTarihi,
+            this.cikisTarihi,
+            this.rezervasyonDurum});
+            this.dgvRezervasyonlar.Location = new System.Drawing.Point(4, 348);
+            this.dgvRezervasyonlar.Name = "dgvRezervasyonlar";
+            this.dgvRezervasyonlar.ReadOnly = true;
+            this.dgvRezervasyonlar.RowHeadersWidth = 62;
+            this.dgvRezervasyonlar.RowTemplate.Height = 28;
+            this.dgvRezervasyonlar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRezervasyonlar.Size = new System.Drawing.Size(1070, 281);
+            this.dgvRezervasyonlar.TabIndex = 2;
+            // 
+            // RezervasyonId
+            // 
+            this.RezervasyonId.HeaderText = "Rezervasyon ID";
+            this.RezervasyonId.MinimumWidth = 8;
+            this.RezervasyonId.Name = "RezervasyonId";
+            this.RezervasyonId.ReadOnly = true;
+            this.RezervasyonId.Visible = false;
+            // 
+            // Musteri
+            // 
+            this.Musteri.FillWeight = 4.172127F;
+            this.Musteri.HeaderText = "Müşteri";
+            this.Musteri.MinimumWidth = 8;
+            this.Musteri.Name = "Musteri";
+            this.Musteri.ReadOnly = true;
+            // 
+            // Oda
+            // 
+            this.Oda.FillWeight = 9.625481F;
+            this.Oda.HeaderText = "Oda";
+            this.Oda.MinimumWidth = 8;
+            this.Oda.Name = "Oda";
+            this.Oda.ReadOnly = true;
+            // 
+            // girisTarihi
+            // 
+            this.girisTarihi.FillWeight = 75.30232F;
+            this.girisTarihi.HeaderText = "Giriş Tarihi";
+            this.girisTarihi.MinimumWidth = 8;
+            this.girisTarihi.Name = "girisTarihi";
+            this.girisTarihi.ReadOnly = true;
+            // 
+            // cikisTarihi
+            // 
+            this.cikisTarihi.FillWeight = 409.0909F;
+            this.cikisTarihi.HeaderText = "Çıkkış Tarihi";
+            this.cikisTarihi.MinimumWidth = 8;
+            this.cikisTarihi.Name = "cikisTarihi";
+            this.cikisTarihi.ReadOnly = true;
+            // 
+            // rezervasyonDurum
+            // 
+            this.rezervasyonDurum.FillWeight = 1.809185F;
+            this.rezervasyonDurum.HeaderText = "Durum";
+            this.rezervasyonDurum.MinimumWidth = 8;
+            this.rezervasyonDurum.Name = "rezervasyonDurum";
+            this.rezervasyonDurum.ReadOnly = true;
             // 
             // contextMenuStrip1
             // 
@@ -384,6 +573,16 @@ namespace OtelRezervasyonSistemi
             this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
+            // btnRezervasyonİptal
+            // 
+            this.btnRezervasyonİptal.Location = new System.Drawing.Point(302, 242);
+            this.btnRezervasyonİptal.Name = "btnRezervasyonİptal";
+            this.btnRezervasyonİptal.Size = new System.Drawing.Size(149, 56);
+            this.btnRezervasyonİptal.TabIndex = 8;
+            this.btnRezervasyonİptal.Text = "Rezervasyon İptal";
+            this.btnRezervasyonİptal.UseVisualStyleBackColor = true;
+            this.btnRezervasyonİptal.Click += new System.EventHandler(this.btnRezervasyonİptal_Click);
             // 
             // Form1
             // 
@@ -402,7 +601,9 @@ namespace OtelRezervasyonSistemi
             this.grpOdaEkle.ResumeLayout(false);
             this.grpOdaEkle.PerformLayout();
             this.tabRezervasyon.ResumeLayout(false);
-            this.tabRezervasyon.PerformLayout();
+            this.grpRezervasyonBilgileri.ResumeLayout(false);
+            this.grpRezervasyonBilgileri.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -410,7 +611,6 @@ namespace OtelRezervasyonSistemi
         private TabPage tabMusteri;
         private TabPage tabOda;
         private TabPage tabRezervasyon;
-        private TextBox txtRezervasyonNo;
         private ContextMenuStrip contextMenuStrip1;
         private TextBox txtSoyad;
         private ContextMenuStrip contextMenuStrip2;
@@ -438,5 +638,24 @@ namespace OtelRezervasyonSistemi
         private DataGridViewTextBoxColumn Durum;
         private Button btnOdaSil;
         private Button btnOdaGuncelle;
+        private DataGridView dgvRezervasyonlar;
+        private DateTimePicker dtpCikisTarihi;
+        private DateTimePicker dtpGirisTarihi;
+        private ComboBox cmbOdalar;
+        private ComboBox cmbMusteriler;
+        private Button btnRezervasyonYap;
+        private GroupBox grpRezervasyonBilgileri;
+        private DataGridViewTextBoxColumn RezervasyonId;
+        private DataGridViewTextBoxColumn Musteri;
+        private DataGridViewTextBoxColumn Oda;
+        private DataGridViewTextBoxColumn girisTarihi;
+        private DataGridViewTextBoxColumn cikisTarihi;
+        private DataGridViewTextBoxColumn rezervasyonDurum;
+        private Label label12;
+        private Label lblGirisTarihi;
+        private Label lblOda;
+        private Label lblMusteri;
+        private Label lblCikisTarihi;
+        private Button btnRezervasyonİptal;
     }
 }
