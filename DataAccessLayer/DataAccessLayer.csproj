@@ -82,6 +82,7 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +97,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="FaturaDAL.cs" />
     <Compile Include="KullaniciDAL.cs" />
     <Compile Include="MusteriDAL.cs" />
     <Compile Include="OdaDAL.cs" />

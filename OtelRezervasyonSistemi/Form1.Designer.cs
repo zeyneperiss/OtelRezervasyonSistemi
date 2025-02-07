@@ -9,7 +9,7 @@ namespace OtelRezervasyonSistemi
         private System.ComponentModel.IContainer components = null;
 
         // Yeni kontroller
-        private TabControl tabControl1;
+        private TabControl tabFaturalar;
         private TextBox txtAd;
         private TextBox txtOdaNumarasi;
 
@@ -25,7 +25,7 @@ namespace OtelRezervasyonSistemi
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabFaturalar = new System.Windows.Forms.TabControl();
             this.tabMusteri = new System.Windows.Forms.TabPage();
             this.btnMusteriEkle = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -56,6 +56,7 @@ namespace OtelRezervasyonSistemi
             this.label6 = new System.Windows.Forms.Label();
             this.txtOdaNumarasi = new System.Windows.Forms.TextBox();
             this.tabRezervasyon = new System.Windows.Forms.TabPage();
+            this.btnRezervasyonİptal = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.grpRezervasyonBilgileri = new System.Windows.Forms.GroupBox();
             this.lblCikisTarihi = new System.Windows.Forms.Label();
@@ -74,10 +75,22 @@ namespace OtelRezervasyonSistemi
             this.girisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cikisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rezervasyonDurum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dgvFaturalar = new System.Windows.Forms.DataGridView();
+            this.grpFaturalar = new System.Windows.Forms.GroupBox();
+            this.lblSeciliRezervasyon = new System.Windows.Forms.Label();
+            this.cmbRezervasyonlar = new System.Windows.Forms.ComboBox();
+            this.btnFaturaOlustur = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btnRezervasyonİptal = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.colFaturaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMusteriAdi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColOdaNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGirisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCikisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToplamTutar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOdemeDurumu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabFaturalar.SuspendLayout();
             this.tabMusteri.SuspendLayout();
             this.tabOda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdalar)).BeginInit();
@@ -85,19 +98,23 @@ namespace OtelRezervasyonSistemi
             this.tabRezervasyon.SuspendLayout();
             this.grpRezervasyonBilgileri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFaturalar)).BeginInit();
+            this.grpFaturalar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabFaturalar
             // 
-            this.tabControl1.Controls.Add(this.tabMusteri);
-            this.tabControl1.Controls.Add(this.tabOda);
-            this.tabControl1.Controls.Add(this.tabRezervasyon);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1086, 662);
-            this.tabControl1.TabIndex = 0;
+            this.tabFaturalar.Controls.Add(this.tabMusteri);
+            this.tabFaturalar.Controls.Add(this.tabOda);
+            this.tabFaturalar.Controls.Add(this.tabRezervasyon);
+            this.tabFaturalar.Controls.Add(this.tabPage1);
+            this.tabFaturalar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabFaturalar.Location = new System.Drawing.Point(0, 0);
+            this.tabFaturalar.Name = "tabFaturalar";
+            this.tabFaturalar.SelectedIndex = 0;
+            this.tabFaturalar.Size = new System.Drawing.Size(1086, 662);
+            this.tabFaturalar.TabIndex = 0;
             // 
             // tabMusteri
             // 
@@ -120,12 +137,16 @@ namespace OtelRezervasyonSistemi
             // 
             // btnMusteriEkle
             // 
-            this.btnMusteriEkle.Location = new System.Drawing.Point(120, 170);
+            this.btnMusteriEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(190)))), ((int)(((byte)(181)))));
+            this.btnMusteriEkle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMusteriEkle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMusteriEkle.ForeColor = System.Drawing.Color.White;
+            this.btnMusteriEkle.Location = new System.Drawing.Point(101, 187);
             this.btnMusteriEkle.Name = "btnMusteriEkle";
-            this.btnMusteriEkle.Size = new System.Drawing.Size(78, 51);
+            this.btnMusteriEkle.Size = new System.Drawing.Size(130, 47);
             this.btnMusteriEkle.TabIndex = 11;
             this.btnMusteriEkle.Text = "Müşteri Ekle";
-            this.btnMusteriEkle.UseVisualStyleBackColor = true;
+            this.btnMusteriEkle.UseVisualStyleBackColor = false;
             this.btnMusteriEkle.Click += new System.EventHandler(this.btnMusteriEkle_Click_1);
             // 
             // label5
@@ -390,6 +411,16 @@ namespace OtelRezervasyonSistemi
             this.tabRezervasyon.TabIndex = 2;
             this.tabRezervasyon.Text = "Rezervasyon İşlemleri";
             // 
+            // btnRezervasyonİptal
+            // 
+            this.btnRezervasyonİptal.Location = new System.Drawing.Point(302, 242);
+            this.btnRezervasyonİptal.Name = "btnRezervasyonİptal";
+            this.btnRezervasyonİptal.Size = new System.Drawing.Size(149, 56);
+            this.btnRezervasyonİptal.TabIndex = 8;
+            this.btnRezervasyonİptal.Text = "Rezervasyon İptal";
+            this.btnRezervasyonİptal.UseVisualStyleBackColor = true;
+            this.btnRezervasyonİptal.Click += new System.EventHandler(this.btnRezervasyonİptal_Click);
+            // 
             // label12
             // 
             this.label12.Location = new System.Drawing.Point(0, 0);
@@ -562,6 +593,78 @@ namespace OtelRezervasyonSistemi
             this.rezervasyonDurum.Name = "rezervasyonDurum";
             this.rezervasyonDurum.ReadOnly = true;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dgvFaturalar);
+            this.tabPage1.Controls.Add(this.grpFaturalar);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1078, 629);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Faturalar";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dgvFaturalar
+            // 
+            this.dgvFaturalar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFaturalar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colFaturaID,
+            this.colMusteriAdi,
+            this.ColOdaNo,
+            this.colGirisTarihi,
+            this.colCikisTarihi,
+            this.ToplamTutar,
+            this.colOdemeDurumu});
+            this.dgvFaturalar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvFaturalar.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvFaturalar.Location = new System.Drawing.Point(3, 382);
+            this.dgvFaturalar.Name = "dgvFaturalar";
+            this.dgvFaturalar.RowHeadersWidth = 62;
+            this.dgvFaturalar.RowTemplate.Height = 28;
+            this.dgvFaturalar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFaturalar.Size = new System.Drawing.Size(1072, 244);
+            this.dgvFaturalar.TabIndex = 1;
+            // 
+            // grpFaturalar
+            // 
+            this.grpFaturalar.Controls.Add(this.lblSeciliRezervasyon);
+            this.grpFaturalar.Controls.Add(this.cmbRezervasyonlar);
+            this.grpFaturalar.Controls.Add(this.btnFaturaOlustur);
+            this.grpFaturalar.Location = new System.Drawing.Point(20, 20);
+            this.grpFaturalar.Name = "grpFaturalar";
+            this.grpFaturalar.Size = new System.Drawing.Size(600, 200);
+            this.grpFaturalar.TabIndex = 0;
+            this.grpFaturalar.TabStop = false;
+            this.grpFaturalar.Text = "Fatura Bilgileri";
+            // 
+            // lblSeciliRezervasyon
+            // 
+            this.lblSeciliRezervasyon.AutoSize = true;
+            this.lblSeciliRezervasyon.Location = new System.Drawing.Point(28, 49);
+            this.lblSeciliRezervasyon.Name = "lblSeciliRezervasyon";
+            this.lblSeciliRezervasyon.Size = new System.Drawing.Size(142, 20);
+            this.lblSeciliRezervasyon.TabIndex = 4;
+            this.lblSeciliRezervasyon.Text = "Seçili Rezervasyon";
+            // 
+            // cmbRezervasyonlar
+            // 
+            this.cmbRezervasyonlar.FormattingEnabled = true;
+            this.cmbRezervasyonlar.Location = new System.Drawing.Point(198, 49);
+            this.cmbRezervasyonlar.Name = "cmbRezervasyonlar";
+            this.cmbRezervasyonlar.Size = new System.Drawing.Size(121, 28);
+            this.cmbRezervasyonlar.TabIndex = 3;
+            // 
+            // btnFaturaOlustur
+            // 
+            this.btnFaturaOlustur.Location = new System.Drawing.Point(487, 130);
+            this.btnFaturaOlustur.Name = "btnFaturaOlustur";
+            this.btnFaturaOlustur.Size = new System.Drawing.Size(96, 52);
+            this.btnFaturaOlustur.TabIndex = 2;
+            this.btnFaturaOlustur.Text = "Fatura Oluştur";
+            this.btnFaturaOlustur.UseVisualStyleBackColor = true;
+            this.btnFaturaOlustur.Click += new System.EventHandler(this.btnFaturaOlustur_Click);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -574,26 +677,74 @@ namespace OtelRezervasyonSistemi
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // btnRezervasyonİptal
+            // colFaturaID
             // 
-            this.btnRezervasyonİptal.Location = new System.Drawing.Point(302, 242);
-            this.btnRezervasyonİptal.Name = "btnRezervasyonİptal";
-            this.btnRezervasyonİptal.Size = new System.Drawing.Size(149, 56);
-            this.btnRezervasyonİptal.TabIndex = 8;
-            this.btnRezervasyonİptal.Text = "Rezervasyon İptal";
-            this.btnRezervasyonİptal.UseVisualStyleBackColor = true;
-            this.btnRezervasyonİptal.Click += new System.EventHandler(this.btnRezervasyonİptal_Click);
+            this.colFaturaID.DataPropertyName = "FaturaID";
+            this.colFaturaID.HeaderText = "Fatura No";
+            this.colFaturaID.MinimumWidth = 8;
+            this.colFaturaID.Name = "colFaturaID";
+            this.colFaturaID.Width = 150;
+            // 
+            // colMusteriAdi
+            // 
+            this.colMusteriAdi.DataPropertyName = "MusteriAdi";
+            this.colMusteriAdi.HeaderText = "Müşteri Adı";
+            this.colMusteriAdi.MinimumWidth = 8;
+            this.colMusteriAdi.Name = "colMusteriAdi";
+            this.colMusteriAdi.Width = 150;
+            // 
+            // ColOdaNo
+            // 
+            this.ColOdaNo.DataPropertyName = "OdaNumarasi";
+            this.ColOdaNo.HeaderText = "Oda No";
+            this.ColOdaNo.MinimumWidth = 8;
+            this.ColOdaNo.Name = "ColOdaNo";
+            this.ColOdaNo.Width = 80;
+            // 
+            // colGirisTarihi
+            // 
+            this.colGirisTarihi.DataPropertyName = "GirisTarihi";
+            this.colGirisTarihi.HeaderText = "Giriş Tarihi";
+            this.colGirisTarihi.MinimumWidth = 8;
+            this.colGirisTarihi.Name = "colGirisTarihi";
+            this.colGirisTarihi.Width = 150;
+            // 
+            // colCikisTarihi
+            // 
+            this.colCikisTarihi.DataPropertyName = "CikisTarihi";
+            this.colCikisTarihi.HeaderText = "Çıkış Tarihi";
+            this.colCikisTarihi.MinimumWidth = 8;
+            this.colCikisTarihi.Name = "colCikisTarihi";
+            this.colCikisTarihi.Width = 150;
+            // 
+            // ToplamTutar
+            // 
+            this.ToplamTutar.DataPropertyName = "ToplamTutar";
+            this.ToplamTutar.HeaderText = "Toplam Tutar";
+            this.ToplamTutar.MinimumWidth = 8;
+            this.ToplamTutar.Name = "ToplamTutar";
+            this.ToplamTutar.Width = 150;
+            // 
+            // colOdemeDurumu
+            // 
+            this.colOdemeDurumu.DataPropertyName = "OdemeDurumu";
+            this.colOdemeDurumu.HeaderText = "Ödeme Durumu";
+            this.colOdemeDurumu.MinimumWidth = 8;
+            this.colOdemeDurumu.Name = "colOdemeDurumu";
+            this.colOdemeDurumu.Width = 120;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(249)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(1086, 662);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabFaturalar);
             this.Name = "Form1";
+            this.ShowInTaskbar = false;
             this.Text = "Otel Rezervasyon Sistemi";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabFaturalar.ResumeLayout(false);
             this.tabMusteri.ResumeLayout(false);
             this.tabMusteri.PerformLayout();
             this.tabOda.ResumeLayout(false);
@@ -604,6 +755,10 @@ namespace OtelRezervasyonSistemi
             this.grpRezervasyonBilgileri.ResumeLayout(false);
             this.grpRezervasyonBilgileri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFaturalar)).EndInit();
+            this.grpFaturalar.ResumeLayout(false);
+            this.grpFaturalar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -657,5 +812,18 @@ namespace OtelRezervasyonSistemi
         private Label lblMusteri;
         private Label lblCikisTarihi;
         private Button btnRezervasyonİptal;
+        private TabPage tabPage1;
+        private GroupBox grpFaturalar;
+        private Button btnFaturaOlustur;
+        private DataGridView dgvFaturalar;
+        private ComboBox cmbRezervasyonlar;
+        private Label lblSeciliRezervasyon;
+        private DataGridViewTextBoxColumn colFaturaID;
+        private DataGridViewTextBoxColumn colMusteriAdi;
+        private DataGridViewTextBoxColumn ColOdaNo;
+        private DataGridViewTextBoxColumn colGirisTarihi;
+        private DataGridViewTextBoxColumn colCikisTarihi;
+        private DataGridViewTextBoxColumn ToplamTutar;
+        private DataGridViewTextBoxColumn colOdemeDurumu;
     }
 }

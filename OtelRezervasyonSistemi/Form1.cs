@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using BusinessLayer;
 using EntityLayer;
 using MySql.Data.MySqlClient;
+
+
+
 namespace OtelRezervasyonSistemi
 {
     public partial class Form1 : Form
@@ -17,6 +20,7 @@ namespace OtelRezervasyonSistemi
         private MusteriManager musteriManager;
         private BusinessLayer.OdaManager odaManager;
         private RezervasyonManager rezervasyonManager;
+        private FaturaManager faturaManager;
 
         public Form1()
         {
@@ -24,6 +28,7 @@ namespace OtelRezervasyonSistemi
             musteriManager = new MusteriManager(); // İş mantığı sınıfı başlatılır
             odaManager = new BusinessLayer.OdaManager();
             rezervasyonManager = new RezervasyonManager();
+            faturaManager = new FaturaManager();
         }
 
 
@@ -82,6 +87,7 @@ namespace OtelRezervasyonSistemi
             dgvRezervasyonlar.Columns.Add("GirisTarihi", "Giriş Tarihi");
             dgvRezervasyonlar.Columns.Add("CikisTarihi", "Çıkış Tarihi");
             dgvRezervasyonlar.Columns.Add("Durum", "Rezervasyon Durumu");  // Başlığı değiştirdik
+            dgvRezervasyonlar.Columns.Add("ToplamTutar", "Toplam Tutar");
 
 
             // DataPropertyName ayarları
@@ -91,7 +97,7 @@ namespace OtelRezervasyonSistemi
             dgvRezervasyonlar.Columns["GirisTarihi"].DataPropertyName = "GirisTarihi";
             dgvRezervasyonlar.Columns["CikisTarihi"].DataPropertyName = "CikisTarihi";
             dgvRezervasyonlar.Columns["Durum"].DataPropertyName = "DurumText";  // Yeni özelliği kullan
-
+            dgvRezervasyonlar.Columns["ToplamTutar"].DataPropertyName = "ToplamTutar";
             // DataGridView sütun ayarları
             dgvRezervasyonlar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             foreach (DataGridViewColumn column in dgvRezervasyonlar.Columns)
@@ -110,9 +116,38 @@ namespace OtelRezervasyonSistemi
                         break;
                 }
             }
+            // Fatura DataGridView ayarları
+            dgvFaturalar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvFaturalar.MultiSelect = false;
+            dgvFaturalar.AutoGenerateColumns = false;
+            dgvFaturalar.Columns.Clear();
+
+            // Fatura sütunlarını ekle
+            dgvFaturalar.Columns.Add("FaturaID", "Fatura No");
+            dgvFaturalar.Columns.Add("MusteriAdi", "Müşteri Adı");
+            dgvFaturalar.Columns.Add("OdaNumarasi", "Oda No");
+            dgvFaturalar.Columns.Add("GirisTarihi", "Giriş Tarihi");
+            dgvFaturalar.Columns.Add("CikisTarihi", "Çıkış Tarihi");
+            dgvFaturalar.Columns.Add("ToplamTutar", "Toplam Tutar");
+            dgvFaturalar.Columns.Add("OdemeDurumu", "Ödeme Durumu");
+
+            // DataPropertyName ayarları
+            dgvFaturalar.Columns["FaturaID"].DataPropertyName = "FaturaID";
+            dgvFaturalar.Columns["MusteriAdi"].DataPropertyName = "MusteriAdi";
+            dgvFaturalar.Columns["OdaNumarasi"].DataPropertyName = "OdaNumarasi";
+            dgvFaturalar.Columns["GirisTarihi"].DataPropertyName = "GirisTarihi";
+            dgvFaturalar.Columns["CikisTarihi"].DataPropertyName = "CikisTarihi";
+            dgvFaturalar.Columns["ToplamTutar"].DataPropertyName = "ToplamTutar";
+            dgvFaturalar.Columns["OdemeDurumu"].DataPropertyName = "OdemeDurumu";
+
 
             OdalariListele();
             RezervasyonlariListele();
+            FaturalariListele();
+
+            RezervasyonlariComboBoxaYukle();
+
+
         }
 
 
@@ -194,35 +229,7 @@ namespace OtelRezervasyonSistemi
                 MessageBox.Show("Oda eklenirken hata oluştu!");
             }
         }
-        //private void btnOdaSil_Click(object sender, EventArgs e)
-        //{
-        //    if (dgvOdalar.SelectedRows.Count == 0)
-        //    {
-        //        MessageBox.Show("Lütfen silinecek odayı seçin.");
-        //        return;
-        //    }
-
-        //    var selectedRow = dgvOdalar.SelectedRows[0];
-        //    var odaID = Convert.ToInt32(selectedRow.Cells["OdaID"].Value);
-
-        //    var result = MessageBox.Show("Bu odayı silmek istediğinizden emin misiniz?",
-        //                               "Silme Onayı",
-        //                               MessageBoxButtons.YesNo,
-        //                               MessageBoxIcon.Question);
-
-        //    if (result == DialogResult.Yes)
-        //    {
-        //        if (odaManager.OdaSil(odaID))
-        //        {
-        //            MessageBox.Show("Oda başarıyla silindi.");
-        //            OdalariListele();
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Oda silinirken bir hata oluştu.");
-        //        }
-        //    }
-        //}
+        
 
         private void btnMusteriEkle_Click_1(object sender, EventArgs e)
         {
@@ -427,7 +434,15 @@ namespace OtelRezervasyonSistemi
                 return;
             }
 
+            decimal toplamFiyat = ToplamFiyatHesapla(dtpGirisTarihi.Value, dtpCikisTarihi.Value, secilenOdaID);
 
+            var result = MessageBox.Show($"Toplam Fiyat: {toplamFiyat:N2} TL\nOnaylıyor musunuz?",
+                            "Fiyat Onayı",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+            if (result == DialogResult.No)
+                return;
             var rezervasyon = new Rezervasyon
             {
                 MusteriID = Convert.ToInt32(cmbMusteriler.SelectedValue),
@@ -451,6 +466,7 @@ namespace OtelRezervasyonSistemi
             {
                 MessageBox.Show("Rezervasyon yapılırken hata oluştu!");
             }
+
 
         }
 
@@ -522,6 +538,89 @@ namespace OtelRezervasyonSistemi
             }
 
             return true;
+        }
+
+
+        private decimal ToplamFiyatHesapla(DateTime girisTarihi, DateTime cikisTarihi, int odaID)
+        {
+            try
+            {
+                // Kalış süresini hesapla
+                int gunSayisi = (cikisTarihi - girisTarihi).Days;
+
+                // Odanın gecelik fiyatını al
+                var odalar = odaManager.TumOdalariGetir();
+                var oda = odalar.First(o => o.OdaID == odaID);
+                decimal gecelikFiyat = oda.Fiyat;
+
+                // Oda tipine göre ek ücret
+                switch (oda.OdaTipi.ToLower())
+                {
+                    case "suit":
+                        gecelikFiyat *= 1.5m; // %50 ek ücret
+                        break;
+                    case "deluxe":
+                        gecelikFiyat *= 2.0m; // %100 ek ücret
+                        break;
+                }
+
+                return gunSayisi * gecelikFiyat;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fiyat hesaplama hatası: {ex.Message}");
+                return 0;
+            }
+        }
+
+        private void FaturalariListele()
+        {
+            try
+            {
+                var faturalar = faturaManager.TumFaturalariGetir();
+                dgvFaturalar.DataSource = faturalar;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Faturalar listelenirken hata oluştu: " + ex.Message);
+            }
+        }
+        private void btnFaturaOlustur_Click(object sender, EventArgs e)
+        {
+            if (dgvRezervasyonlar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen fatura oluşturulacak rezervasyonu seçin.");
+                return;
+            }
+
+            var selectedRow = dgvRezervasyonlar.SelectedRows[0];
+            var rezervasyonID = Convert.ToInt32(selectedRow.Cells["RezervasyonID"].Value);
+            // Toplam tutarı rezervasyon için yeniden hesapla
+            var rezervasyon = rezervasyonManager.TumRezervasyonlariGetir()
+                .FirstOrDefault(r => r.RezervasyonID == rezervasyonID);
+
+            if (rezervasyon != null)
+            {
+                var toplamTutar = ToplamFiyatHesapla(rezervasyon.GirisTarihi, rezervasyon.CikisTarihi, rezervasyon.OdaID);
+
+                if (faturaManager.FaturaOlustur(rezervasyonID, toplamTutar))
+                {
+                    MessageBox.Show("Fatura başarıyla oluşturuldu!");
+                    FaturalariListele();
+                }
+                else
+                {
+                    MessageBox.Show("Fatura oluşturulurken hata oluştu!");
+                }
+            }
+        }
+
+        private void RezervasyonlariComboBoxaYukle()
+        {
+            var rezervasyonlar = rezervasyonManager.TumRezervasyonlariGetir();
+            cmbRezervasyonlar.DataSource = rezervasyonlar;
+            cmbRezervasyonlar.DisplayMember = "RezervasyonID";
+            cmbRezervasyonlar.ValueMember = "RezervasyonID";
         }
 
     }

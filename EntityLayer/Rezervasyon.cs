@@ -18,5 +18,6 @@ namespace EntityLayer
         public string MusteriAdi { get; set; }
         public string OdaNumarasi { get; set; }
         public string DurumText { get; set; }  // Durumun metin halini tutacak yeni özellik
+        
     }
 }

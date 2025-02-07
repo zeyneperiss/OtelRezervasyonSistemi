@@ -38,41 +38,46 @@
             // lblusername
             // 
             this.lblusername.AutoSize = true;
-            this.lblusername.Location = new System.Drawing.Point(136, 122);
+            this.lblusername.Location = new System.Drawing.Point(166, 171);
+            this.lblusername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblusername.Name = "lblusername";
-            this.lblusername.Size = new System.Drawing.Size(97, 20);
+            this.lblusername.Size = new System.Drawing.Size(124, 28);
             this.lblusername.TabIndex = 0;
             this.lblusername.Text = "Kullanıcı Adı:";
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(292, 115);
+            this.txtUsername.Location = new System.Drawing.Point(357, 161);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(200, 26);
+            this.txtUsername.Size = new System.Drawing.Size(244, 34);
             this.txtUsername.TabIndex = 1;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(140, 162);
+            this.lblPassword.Location = new System.Drawing.Point(171, 227);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(46, 20);
+            this.lblPassword.Size = new System.Drawing.Size(55, 28);
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Şifre:";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(292, 162);
+            this.txtPassword.Location = new System.Drawing.Point(357, 227);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(200, 26);
+            this.txtPassword.Size = new System.Drawing.Size(244, 34);
             this.txtPassword.TabIndex = 3;
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(416, 241);
+            this.btnLogin.Location = new System.Drawing.Point(508, 337);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(100, 30);
+            this.btnLogin.Size = new System.Drawing.Size(122, 42);
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Giriş Yap";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -80,15 +85,18 @@
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(182)))), ((int)(((byte)(140)))));
+            this.ClientSize = new System.Drawing.Size(1225, 997);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblusername);
+            this.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Otel Rezervasyon Sistemi - Giriş";

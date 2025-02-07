@@ -25,27 +25,21 @@ namespace BusinessLayer
         {
             try
             {
-                using (var conn = DatabaseConnection.GetConnection()) // static metodu kullan
+                using (var conn = DatabaseConnection.GetConnection())
                 {
-                    string query = "INSERT INTO Rezervasyonlar (MusteriID, OdaID, GirisTarihi, CikisTarihi, Durum) VALUES (@musteriId, @odaId, @giris, @cikis, @durum)";
+                    string query = "INSERT INTO Rezervasyonlar (MusteriID, OdaID, GirisTarihi, CikisTarihi, ToplamFiyat, Durum) " +
+                                  "VALUES (@musteriId, @odaId, @giris, @cikis, @toplamFiyat, @durum)";
+
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@musteriId", rezervasyon.MusteriID);
                         cmd.Parameters.AddWithValue("@odaId", rezervasyon.OdaID);
                         cmd.Parameters.AddWithValue("@giris", rezervasyon.GirisTarihi);
                         cmd.Parameters.AddWithValue("@cikis", rezervasyon.CikisTarihi);
+                        cmd.Parameters.AddWithValue("@toplamFiyat", rezervasyon.ToplamFiyat);
                         cmd.Parameters.AddWithValue("@durum", rezervasyon.Durum);
 
-                        cmd.ExecuteNonQuery();
-
-                        // Odanın durumunu güncelle
-                        string updateQuery = "UPDATE Odalar SET Durum = 0 WHERE OdaID = @odaId";
-                        using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
-                        {
-                            updateCmd.Parameters.AddWithValue("@odaId", rezervasyon.OdaID);
-                            updateCmd.ExecuteNonQuery();
-                        }
-                        return true;
+                        return cmd.ExecuteNonQuery() > 0;
                     }
                 }
             }
