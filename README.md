@@ -28,7 +28,7 @@ Faturalar
 
 
 # YouTube Linki:
-https://youtu.be/GKxFSjjSExs?si=04D-lI1Ei_JefrvV
+https://youtu.be/SsYllV-wyYM?si=DjG1h1xttuphqKpc
 
 
 
