@@ -25,13 +25,13 @@ namespace OtelRezervasyonSistemi
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabAnasayfa = new System.Windows.Forms.TabPage();
             this.btnExit = new System.Windows.Forms.Button();
@@ -65,7 +65,6 @@ namespace OtelRezervasyonSistemi
             this.lblTCno = new System.Windows.Forms.Label();
             this.tabOda = new System.Windows.Forms.TabPage();
             this.btnToHomeOdalar = new System.Windows.Forms.Button();
-            this.btnOdaSil = new System.Windows.Forms.Button();
             this.dgvOdalar = new System.Windows.Forms.DataGridView();
             this.OdaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OdaNumarasi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,6 +73,7 @@ namespace OtelRezervasyonSistemi
             this.Durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpOdaEkle = new System.Windows.Forms.GroupBox();
             this.btnOdaGuncelle = new System.Windows.Forms.Button();
+            this.btnOdaSil = new System.Windows.Forms.Button();
             this.btnOdaEkle = new System.Windows.Forms.Button();
             this.txtFiyat = new System.Windows.Forms.TextBox();
             this.lblFiyat = new System.Windows.Forms.Label();
@@ -83,18 +83,18 @@ namespace OtelRezervasyonSistemi
             this.txtOdaNumarasi = new System.Windows.Forms.TextBox();
             this.tabRezervasyon = new System.Windows.Forms.TabPage();
             this.btnToHomeRezervasyon = new System.Windows.Forms.Button();
-            this.btnRezervasyonİptal = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.grpRezervasyonBilgileri = new System.Windows.Forms.GroupBox();
             this.lblCikisTarihi = new System.Windows.Forms.Label();
+            this.btnRezervasyonİptal = new System.Windows.Forms.Button();
             this.lblGirisTarihi = new System.Windows.Forms.Label();
+            this.btnRezervasyonYap = new System.Windows.Forms.Button();
             this.lblMusteri = new System.Windows.Forms.Label();
             this.cmbOdalar = new System.Windows.Forms.ComboBox();
             this.cmbMusteriler = new System.Windows.Forms.ComboBox();
             this.dtpCikisTarihi = new System.Windows.Forms.DateTimePicker();
             this.lblOda = new System.Windows.Forms.Label();
             this.dtpGirisTarihi = new System.Windows.Forms.DateTimePicker();
-            this.btnRezervasyonYap = new System.Windows.Forms.Button();
             this.dgvRezervasyonlar = new System.Windows.Forms.DataGridView();
             this.RezervasyonId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Musteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -118,6 +118,7 @@ namespace OtelRezervasyonSistemi
             this.btnFaturaOlustur = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.tabControl1.SuspendLayout();
             this.tabAnasayfa.SuspendLayout();
             this.pnlWelcome.SuspendLayout();
@@ -154,6 +155,7 @@ namespace OtelRezervasyonSistemi
             // 
             this.tabAnasayfa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(233)))));
             this.tabAnasayfa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.tabAnasayfa.Controls.Add(this.monthCalendar1);
             this.tabAnasayfa.Controls.Add(this.btnExit);
             this.tabAnasayfa.Controls.Add(this.pnlWelcome);
             this.tabAnasayfa.Controls.Add(this.btnFaturalar);
@@ -170,12 +172,12 @@ namespace OtelRezervasyonSistemi
             // btnExit
             // 
             this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(212)))), ((int)(((byte)(218)))));
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnExit.Font = new System.Drawing.Font("Ebrima", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(149)))), ((int)(((byte)(123)))));
-            this.btnExit.Location = new System.Drawing.Point(1250, 700);
+            this.btnExit.Location = new System.Drawing.Point(1250, 688);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(200, 100);
+            this.btnExit.Size = new System.Drawing.Size(220, 112);
             this.btnExit.TabIndex = 6;
             this.btnExit.Text = "Çıkış Yap";
             this.btnExit.UseVisualStyleBackColor = false;
@@ -198,7 +200,7 @@ namespace OtelRezervasyonSistemi
             this.lblWelcome.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblWelcome.Font = new System.Drawing.Font("Ebrima", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(177)))), ((int)(((byte)(153)))));
-            this.lblWelcome.Location = new System.Drawing.Point(189, 27);
+            this.lblWelcome.Location = new System.Drawing.Point(260, 34);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(944, 67);
             this.lblWelcome.TabIndex = 0;
@@ -211,9 +213,9 @@ namespace OtelRezervasyonSistemi
             this.btnFaturalar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFaturalar.Font = new System.Drawing.Font("Ebrima", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFaturalar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
-            this.btnFaturalar.Location = new System.Drawing.Point(800, 500);
+            this.btnFaturalar.Location = new System.Drawing.Point(940, 478);
             this.btnFaturalar.Name = "btnFaturalar";
-            this.btnFaturalar.Size = new System.Drawing.Size(400, 100);
+            this.btnFaturalar.Size = new System.Drawing.Size(419, 122);
             this.btnFaturalar.TabIndex = 4;
             this.btnFaturalar.Text = "Faturalar";
             this.btnFaturalar.UseVisualStyleBackColor = false;
@@ -225,9 +227,9 @@ namespace OtelRezervasyonSistemi
             this.btnRezervasyonİslemleri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRezervasyonİslemleri.Font = new System.Drawing.Font("Ebrima", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRezervasyonİslemleri.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
-            this.btnRezervasyonİslemleri.Location = new System.Drawing.Point(400, 500);
+            this.btnRezervasyonİslemleri.Location = new System.Drawing.Point(400, 467);
             this.btnRezervasyonİslemleri.Name = "btnRezervasyonİslemleri";
-            this.btnRezervasyonİslemleri.Size = new System.Drawing.Size(400, 100);
+            this.btnRezervasyonİslemleri.Size = new System.Drawing.Size(461, 122);
             this.btnRezervasyonİslemleri.TabIndex = 3;
             this.btnRezervasyonİslemleri.Text = "Rezervasyon İşlemleri";
             this.btnRezervasyonİslemleri.UseVisualStyleBackColor = false;
@@ -239,9 +241,9 @@ namespace OtelRezervasyonSistemi
             this.btnOdaİslemleri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOdaİslemleri.Font = new System.Drawing.Font("Ebrima", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOdaİslemleri.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
-            this.btnOdaİslemleri.Location = new System.Drawing.Point(800, 300);
+            this.btnOdaİslemleri.Location = new System.Drawing.Point(940, 276);
             this.btnOdaİslemleri.Name = "btnOdaİslemleri";
-            this.btnOdaİslemleri.Size = new System.Drawing.Size(400, 100);
+            this.btnOdaİslemleri.Size = new System.Drawing.Size(419, 124);
             this.btnOdaİslemleri.TabIndex = 2;
             this.btnOdaİslemleri.Text = "Oda İşlemleri";
             this.btnOdaİslemleri.UseVisualStyleBackColor = false;
@@ -253,9 +255,9 @@ namespace OtelRezervasyonSistemi
             this.btnMusteriİslemleri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMusteriİslemleri.Font = new System.Drawing.Font("Ebrima", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMusteriİslemleri.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
-            this.btnMusteriİslemleri.Location = new System.Drawing.Point(400, 300);
+            this.btnMusteriİslemleri.Location = new System.Drawing.Point(400, 276);
             this.btnMusteriİslemleri.Name = "btnMusteriİslemleri";
-            this.btnMusteriİslemleri.Size = new System.Drawing.Size(400, 100);
+            this.btnMusteriİslemleri.Size = new System.Drawing.Size(461, 124);
             this.btnMusteriİslemleri.TabIndex = 1;
             this.btnMusteriİslemleri.Text = "Müşteri İşlemleri";
             this.btnMusteriİslemleri.UseVisualStyleBackColor = false;
@@ -299,9 +301,9 @@ namespace OtelRezervasyonSistemi
             this.btnToHomeMusteriler.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToHomeMusteriler.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnToHomeMusteriler.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(194)))), ((int)(((byte)(169)))));
-            this.btnToHomeMusteriler.Location = new System.Drawing.Point(20, 20);
+            this.btnToHomeMusteriler.Location = new System.Drawing.Point(46, 32);
             this.btnToHomeMusteriler.Name = "btnToHomeMusteriler";
-            this.btnToHomeMusteriler.Size = new System.Drawing.Size(212, 75);
+            this.btnToHomeMusteriler.Size = new System.Drawing.Size(260, 105);
             this.btnToHomeMusteriler.TabIndex = 13;
             this.btnToHomeMusteriler.Text = "Anasayfaya Dön";
             this.btnToHomeMusteriler.UseVisualStyleBackColor = false;
@@ -349,14 +351,14 @@ namespace OtelRezervasyonSistemi
             // 
             this.dgvMusteriler.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(212)))), ((int)(((byte)(218)))));
             this.dgvMusteriler.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(79)))), ((int)(((byte)(90)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(190)))), ((int)(((byte)(181)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(208)))), ((int)(((byte)(184)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMusteriler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(79)))), ((int)(((byte)(90)))));
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(190)))), ((int)(((byte)(181)))));
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(208)))), ((int)(((byte)(184)))));
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMusteriler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dgvMusteriler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMusteriler.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvMusteriID,
@@ -365,25 +367,25 @@ namespace OtelRezervasyonSistemi
             this.dgvTcNo,
             this.dgvTelefon,
             this.dgvEmail});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(77)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(232)))), ((int)(((byte)(217)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(79)))), ((int)(((byte)(90)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvMusteriler.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(194)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(232)))), ((int)(((byte)(217)))));
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(79)))), ((int)(((byte)(90)))));
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMusteriler.DefaultCellStyle = dataGridViewCellStyle23;
             this.dgvMusteriler.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dgvMusteriler.Location = new System.Drawing.Point(25, 278);
             this.dgvMusteriler.Name = "dgvMusteriler";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMusteriler.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMusteriler.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             this.dgvMusteriler.RowHeadersWidth = 62;
             this.dgvMusteriler.RowTemplate.Height = 28;
             this.dgvMusteriler.Size = new System.Drawing.Size(815, 489);
@@ -537,6 +539,7 @@ namespace OtelRezervasyonSistemi
             this.tabOda.AutoScroll = true;
             this.tabOda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(216)))), ((int)(((byte)(194)))));
             this.tabOda.Controls.Add(this.btnToHomeOdalar);
+            this.tabOda.Controls.Add(this.btnOdaSil);
             this.tabOda.Controls.Add(this.dgvOdalar);
             this.tabOda.Controls.Add(this.grpOdaEkle);
             this.tabOda.Location = new System.Drawing.Point(4, 29);
@@ -551,32 +554,19 @@ namespace OtelRezervasyonSistemi
             this.btnToHomeOdalar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToHomeOdalar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnToHomeOdalar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(194)))), ((int)(((byte)(169)))));
-            this.btnToHomeOdalar.Location = new System.Drawing.Point(1272, 28);
+            this.btnToHomeOdalar.Location = new System.Drawing.Point(1261, 28);
             this.btnToHomeOdalar.Name = "btnToHomeOdalar";
-            this.btnToHomeOdalar.Size = new System.Drawing.Size(217, 67);
+            this.btnToHomeOdalar.Size = new System.Drawing.Size(241, 96);
             this.btnToHomeOdalar.TabIndex = 14;
             this.btnToHomeOdalar.Text = "Anasayfaya Dön";
             this.btnToHomeOdalar.UseVisualStyleBackColor = false;
             this.btnToHomeOdalar.Click += new System.EventHandler(this.btnToHomeOdalar_Click);
             // 
-            // btnOdaSil
-            // 
-            this.btnOdaSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(197)))), ((int)(((byte)(153)))));
-            this.btnOdaSil.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOdaSil.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnOdaSil.Location = new System.Drawing.Point(192, 284);
-            this.btnOdaSil.Name = "btnOdaSil";
-            this.btnOdaSil.Size = new System.Drawing.Size(165, 50);
-            this.btnOdaSil.TabIndex = 4;
-            this.btnOdaSil.Text = "Oda Sil";
-            this.btnOdaSil.UseVisualStyleBackColor = false;
-            this.btnOdaSil.Click += new System.EventHandler(this.btnOdaSil_Click_1);
-            // 
             // dgvOdalar
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvOdalar.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvOdalar.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.dgvOdalar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(50)))), ((int)(((byte)(32)))));
             this.dgvOdalar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOdalar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -585,28 +575,28 @@ namespace OtelRezervasyonSistemi
             this.OdaTipi,
             this.Fiyat,
             this.Durum});
-            this.dgvOdalar.Location = new System.Drawing.Point(129, 368);
+            this.dgvOdalar.Location = new System.Drawing.Point(160, 381);
             this.dgvOdalar.MultiSelect = false;
             this.dgvOdalar.Name = "dgvOdalar";
             this.dgvOdalar.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.OldLace;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(175)))), ((int)(((byte)(138)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(63)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvOdalar.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.OldLace;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(175)))), ((int)(((byte)(138)))));
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(63)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOdalar.RowHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.dgvOdalar.RowHeadersWidth = 62;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(90)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(177)))), ((int)(((byte)(160)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(77)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(191)))));
-            this.dgvOdalar.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(90)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(177)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(77)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(191)))));
+            this.dgvOdalar.RowsDefaultCellStyle = dataGridViewCellStyle27;
             this.dgvOdalar.RowTemplate.Height = 28;
             this.dgvOdalar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOdalar.Size = new System.Drawing.Size(1212, 431);
+            this.dgvOdalar.Size = new System.Drawing.Size(1333, 431);
             this.dgvOdalar.TabIndex = 3;
             this.dgvOdalar.SelectionChanged += new System.EventHandler(this.dgvOdalar_SelectionChanged);
             // 
@@ -655,7 +645,6 @@ namespace OtelRezervasyonSistemi
             // 
             this.grpOdaEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(50)))), ((int)(((byte)(32)))));
             this.grpOdaEkle.Controls.Add(this.btnOdaGuncelle);
-            this.grpOdaEkle.Controls.Add(this.btnOdaSil);
             this.grpOdaEkle.Controls.Add(this.btnOdaEkle);
             this.grpOdaEkle.Controls.Add(this.txtFiyat);
             this.grpOdaEkle.Controls.Add(this.lblFiyat);
@@ -684,6 +673,19 @@ namespace OtelRezervasyonSistemi
             this.btnOdaGuncelle.Text = "Güncelle";
             this.btnOdaGuncelle.UseVisualStyleBackColor = false;
             this.btnOdaGuncelle.Click += new System.EventHandler(this.btnOdaGuncelle_Click);
+            // 
+            // btnOdaSil
+            // 
+            this.btnOdaSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(197)))), ((int)(((byte)(153)))));
+            this.btnOdaSil.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOdaSil.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnOdaSil.Location = new System.Drawing.Point(1304, 588);
+            this.btnOdaSil.Name = "btnOdaSil";
+            this.btnOdaSil.Size = new System.Drawing.Size(165, 50);
+            this.btnOdaSil.TabIndex = 4;
+            this.btnOdaSil.Text = "Oda Sil";
+            this.btnOdaSil.UseVisualStyleBackColor = false;
+            this.btnOdaSil.Click += new System.EventHandler(this.btnOdaSil_Click_1);
             // 
             // btnOdaEkle
             // 
@@ -790,21 +792,6 @@ namespace OtelRezervasyonSistemi
             this.btnToHomeRezervasyon.UseVisualStyleBackColor = false;
             this.btnToHomeRezervasyon.Click += new System.EventHandler(this.btnToHomeRezervasyon_Click);
             // 
-            // btnRezervasyonİptal
-            // 
-            this.btnRezervasyonİptal.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRezervasyonİptal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.btnRezervasyonİptal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRezervasyonİptal.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRezervasyonİptal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(233)))));
-            this.btnRezervasyonİptal.Location = new System.Drawing.Point(18, 373);
-            this.btnRezervasyonİptal.Name = "btnRezervasyonİptal";
-            this.btnRezervasyonİptal.Size = new System.Drawing.Size(338, 72);
-            this.btnRezervasyonİptal.TabIndex = 8;
-            this.btnRezervasyonİptal.Text = "Rezervasyon İptal";
-            this.btnRezervasyonİptal.UseVisualStyleBackColor = false;
-            this.btnRezervasyonİptal.Click += new System.EventHandler(this.btnRezervasyonİptal_Click);
-            // 
             // label12
             // 
             this.label12.Location = new System.Drawing.Point(0, 0);
@@ -845,6 +832,21 @@ namespace OtelRezervasyonSistemi
             this.lblCikisTarihi.Text = "Çıkış Tarihi";
             this.lblCikisTarihi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnRezervasyonİptal
+            // 
+            this.btnRezervasyonİptal.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnRezervasyonİptal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.btnRezervasyonİptal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRezervasyonİptal.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRezervasyonİptal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(233)))));
+            this.btnRezervasyonİptal.Location = new System.Drawing.Point(18, 373);
+            this.btnRezervasyonİptal.Name = "btnRezervasyonİptal";
+            this.btnRezervasyonİptal.Size = new System.Drawing.Size(338, 72);
+            this.btnRezervasyonİptal.TabIndex = 8;
+            this.btnRezervasyonİptal.Text = "Rezervasyon İptal";
+            this.btnRezervasyonİptal.UseVisualStyleBackColor = false;
+            this.btnRezervasyonİptal.Click += new System.EventHandler(this.btnRezervasyonİptal_Click);
+            // 
             // lblGirisTarihi
             // 
             this.lblGirisTarihi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
@@ -856,6 +858,20 @@ namespace OtelRezervasyonSistemi
             this.lblGirisTarihi.TabIndex = 12;
             this.lblGirisTarihi.Text = "Giriş Tarihi";
             this.lblGirisTarihi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnRezervasyonYap
+            // 
+            this.btnRezervasyonYap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.btnRezervasyonYap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRezervasyonYap.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRezervasyonYap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(233)))));
+            this.btnRezervasyonYap.Location = new System.Drawing.Point(389, 373);
+            this.btnRezervasyonYap.Name = "btnRezervasyonYap";
+            this.btnRezervasyonYap.Size = new System.Drawing.Size(338, 72);
+            this.btnRezervasyonYap.TabIndex = 8;
+            this.btnRezervasyonYap.Text = "Rezervasyon Yap";
+            this.btnRezervasyonYap.UseVisualStyleBackColor = false;
+            this.btnRezervasyonYap.Click += new System.EventHandler(this.btnRezervasyonYap_Click);
             // 
             // lblMusteri
             // 
@@ -914,20 +930,6 @@ namespace OtelRezervasyonSistemi
             this.dtpGirisTarihi.Size = new System.Drawing.Size(200, 42);
             this.dtpGirisTarihi.TabIndex = 4;
             // 
-            // btnRezervasyonYap
-            // 
-            this.btnRezervasyonYap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.btnRezervasyonYap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRezervasyonYap.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRezervasyonYap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(233)))));
-            this.btnRezervasyonYap.Location = new System.Drawing.Point(389, 373);
-            this.btnRezervasyonYap.Name = "btnRezervasyonYap";
-            this.btnRezervasyonYap.Size = new System.Drawing.Size(338, 72);
-            this.btnRezervasyonYap.TabIndex = 8;
-            this.btnRezervasyonYap.Text = "Rezervasyon Yap";
-            this.btnRezervasyonYap.UseVisualStyleBackColor = false;
-            this.btnRezervasyonYap.Click += new System.EventHandler(this.btnRezervasyonYap_Click);
-            // 
             // dgvRezervasyonlar
             // 
             this.dgvRezervasyonlar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -940,14 +942,15 @@ namespace OtelRezervasyonSistemi
             this.girisTarihi,
             this.cikisTarihi,
             this.rezervasyonDurum});
-            this.dgvRezervasyonlar.Location = new System.Drawing.Point(303, 461);
+            this.dgvRezervasyonlar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvRezervasyonlar.Location = new System.Drawing.Point(0, 491);
             this.dgvRezervasyonlar.Name = "dgvRezervasyonlar";
             this.dgvRezervasyonlar.ReadOnly = true;
             this.dgvRezervasyonlar.RowHeadersVisible = false;
             this.dgvRezervasyonlar.RowHeadersWidth = 62;
             this.dgvRezervasyonlar.RowTemplate.Height = 28;
             this.dgvRezervasyonlar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRezervasyonlar.Size = new System.Drawing.Size(1070, 368);
+            this.dgvRezervasyonlar.Size = new System.Drawing.Size(1510, 346);
             this.dgvRezervasyonlar.TabIndex = 2;
             this.dgvRezervasyonlar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRezervasyonlar_CellContentClick);
             // 
@@ -1030,7 +1033,6 @@ namespace OtelRezervasyonSistemi
             // 
             // dgvFaturalar
             // 
-            this.dgvFaturalar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dgvFaturalar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
             this.dgvFaturalar.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvFaturalar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1042,16 +1044,17 @@ namespace OtelRezervasyonSistemi
             this.colCikisTarihi,
             this.ToplamTutar,
             this.colOdemeDurumu});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(168)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(185)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(232)))), ((int)(((byte)(217)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFaturalar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(168)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(185)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(232)))), ((int)(((byte)(217)))));
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFaturalar.DefaultCellStyle = dataGridViewCellStyle28;
+            this.dgvFaturalar.Dock = System.Windows.Forms.DockStyle.Right;
             this.dgvFaturalar.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(198)))), ((int)(((byte)(212)))));
-            this.dgvFaturalar.Location = new System.Drawing.Point(331, 425);
+            this.dgvFaturalar.Location = new System.Drawing.Point(727, 3);
             this.dgvFaturalar.MultiSelect = false;
             this.dgvFaturalar.Name = "dgvFaturalar";
             this.dgvFaturalar.ReadOnly = true;
@@ -1059,7 +1062,7 @@ namespace OtelRezervasyonSistemi
             this.dgvFaturalar.RowHeadersWidth = 62;
             this.dgvFaturalar.RowTemplate.Height = 28;
             this.dgvFaturalar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFaturalar.Size = new System.Drawing.Size(956, 361);
+            this.dgvFaturalar.Size = new System.Drawing.Size(944, 805);
             this.dgvFaturalar.TabIndex = 1;
             // 
             // colFaturaID
@@ -1132,9 +1135,9 @@ namespace OtelRezervasyonSistemi
             this.grpFaturalar.Controls.Add(this.cmbRezervasyonlar);
             this.grpFaturalar.Controls.Add(this.btnFaturaOlustur);
             this.grpFaturalar.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpFaturalar.Location = new System.Drawing.Point(378, 22);
+            this.grpFaturalar.Location = new System.Drawing.Point(34, 222);
             this.grpFaturalar.Name = "grpFaturalar";
-            this.grpFaturalar.Size = new System.Drawing.Size(750, 378);
+            this.grpFaturalar.Size = new System.Drawing.Size(696, 367);
             this.grpFaturalar.TabIndex = 0;
             this.grpFaturalar.TabStop = false;
             this.grpFaturalar.Text = "Fatura Bilgileri";
@@ -1182,6 +1185,12 @@ namespace OtelRezervasyonSistemi
             this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Location = new System.Drawing.Point(76, 547);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 7;
             // 
             // Form1
             // 
@@ -1303,6 +1312,7 @@ namespace OtelRezervasyonSistemi
         private Button btnToHomeOdalar;
         private Button btnToHomeRezervasyon;
         private Button btnToHomeFaturalar;
+        private MonthCalendar monthCalendar1;
         //private Panel pnlSidebar;
     }
 }

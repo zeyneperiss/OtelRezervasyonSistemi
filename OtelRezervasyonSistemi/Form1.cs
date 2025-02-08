@@ -642,18 +642,7 @@ namespace OtelRezervasyonSistemi
             }
         }
 
-        private void FaturalariListele()
-        {
-            try
-            {
-                var faturalar = faturaManager.TumFaturalariGetir();
-                dgvFaturalar.DataSource = faturalar;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Faturalar listelenirken hata oluştu: " + ex.Message);
-            }
-        }
+       
         private void btnFaturaOlustur_Click(object sender, EventArgs e)
         {
             if (dgvRezervasyonlar.SelectedRows.Count == 0)
@@ -682,6 +671,20 @@ namespace OtelRezervasyonSistemi
                     MessageBox.Show("Fatura oluşturulurken hata oluştu!");
                 }
             }
+        }
+
+        private void FaturalariListele()
+        {
+            try
+            {
+                var faturalar = faturaManager.TumFaturalariGetir();
+                dgvFaturalar.DataSource = faturalar;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Faturalar listelenirken hata oluştu: " + ex.Message);
+            }
+
         }
 
         private void RezervasyonlariComboBoxaYukle()

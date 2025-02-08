@@ -93,7 +93,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Fatura.cs" />
     <Compile Include="Kullanici.cs" />
     <Compile Include="Musteri.cs" />
