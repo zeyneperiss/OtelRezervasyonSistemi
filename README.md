@@ -12,7 +12,6 @@ Otel yöneticileri, müşteri bilgilerini yönetebilir, oda rezervasyonları olu
 # USE CASE DİYAGRAMI
 <img width="978" alt="usecaseDiyagramfinal" src="https://github.com/user-attachments/assets/21433172-7217-4f6b-add0-10a0b7f6a5be" />
 # ARAYÜZ GÖRSELLERİ
-
 Login ekranı
 <img width="1242" alt="Screen Shot 2025-02-08 at 20 40 58" src="https://github.com/user-attachments/assets/4cdcb286-6d1f-49e3-88d0-dad7a98b443d" />
 ANASAYFA
