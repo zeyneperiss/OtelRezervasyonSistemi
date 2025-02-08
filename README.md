@@ -13,6 +13,7 @@ Otel yöneticileri, müşteri bilgilerini yönetebilir, oda rezervasyonları olu
 <img width="978" alt="usecaseDiyagramfinal" src="https://github.com/user-attachments/assets/21433172-7217-4f6b-add0-10a0b7f6a5be" />
 # ARAYÜZ GÖRSELLERİ
 Login ekranı
+yöneticinin giriş yaptığı login ekranım
 <img width="1242" alt="Screen Shot 2025-02-08 at 20 40 58" src="https://github.com/user-attachments/assets/4cdcb286-6d1f-49e3-88d0-dad7a98b443d" />
 ANASAYFA
 <img width="985" alt="Screen Shot 2025-02-08 at 20 53 11" src="https://github.com/user-attachments/assets/eeb89647-2450-48ec-93aa-aa8a8900fcd4" />
@@ -26,7 +27,8 @@ Faturalar
 <img width="1028" alt="Screen Shot 2025-02-08 at 20 53 53" src="https://github.com/user-attachments/assets/2b1d0c58-5f04-4775-bcfb-7c094769c5eb" />
 
 
-
+# YouTube Linki:
+https://youtu.be/GKxFSjjSExs?si=04D-lI1Ei_JefrvV
 
 
 
