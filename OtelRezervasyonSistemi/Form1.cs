@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,12 +30,78 @@ namespace OtelRezervasyonSistemi
             odaManager = new BusinessLayer.OdaManager();
             rezervasyonManager = new RezervasyonManager();
             faturaManager = new FaturaManager();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Size = new Size(1400, 800);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Normal;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
+            //yeni panel için
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.pnlSidebar);
+
+            
+
         }
+
+        private void InitializeForm()
+        {
+            // Ana form ayarları
+            this.Size = new Size(1200, 800);
+            this.Text = "Otel Rezervasyon Sistemi";
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+
+
 
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TabControl ayarları
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Padding = new Point(0, 0);
+
+            // Ana sayfa panel
+            Panel pnlWelcome = new Panel
+            {
+                Width = tabAnasayfa.Width,
+                Height = 120,
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(63, 78, 79)
+            };
+
+            Label lblWelcome = new Label
+            {
+                Text = "KİDALYO BUTİK OTEL YÖNETİM SİSTEMİ",
+                Font = new Font("Segoe UI", 20, FontStyle.Bold),
+                ForeColor = Color.FromArgb(220, 215, 201),
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            pnlWelcome.Controls.Add(lblWelcome);
+            //tabAnasayfa.Controls.Add(pnlWelcome);
+
+            // Menü butonlarını düzenle
+            btnMusteriİslemleri.Size = new Size(300, 80);
+            btnOdaİslemleri.Size = new Size(300, 80);
+            btnRezervasyonİslemleri.Size = new Size(300, 80);
+            btnFaturalar.Size = new Size(300, 80);
+
+            int centerX = (tabAnasayfa.Width - 650) / 2;
+            int centerY = (tabAnasayfa.Height - 250) / 2;
+
+            btnMusteriİslemleri.Location = new Point(centerX, centerY);
+            btnOdaİslemleri.Location = new Point(centerX + 350, centerY);
+            btnRezervasyonİslemleri.Location = new Point(centerX, centerY + 100);
+            btnFaturalar.Location = new Point(centerX + 350, centerY + 100);
+
+
+
             // DataGridView ayarları
             dgvOdalar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvOdalar.MultiSelect = false;
@@ -61,13 +128,11 @@ namespace OtelRezervasyonSistemi
             cmbOdaTipi.Items.AddRange(new string[] { "Standart", "Suit", "Deluxe" });
             cmbOdaTipi.SelectedIndex = 0;
 
-            // Müşterileri ComboBox'a yükle
             var musteriler = musteriManager.TumMusterileriGetir();
             cmbMusteriler.DataSource = musteriler;
             cmbMusteriler.DisplayMember = "Ad";
             cmbMusteriler.ValueMember = "MusteriID";
 
-            // Odaları ComboBox'a yükle
             var odalar = odaManager.TumOdalariGetir();
             cmbOdalar.DataSource = odalar;
             cmbOdalar.DisplayMember = "OdaNumarasi";
@@ -80,15 +145,13 @@ namespace OtelRezervasyonSistemi
             dgvRezervasyonlar.AutoGenerateColumns = false;
             dgvRezervasyonlar.Columns.Clear();
 
-            // Rezervasyon sütun tanımları
             dgvRezervasyonlar.Columns.Add("RezervasyonID", "Rezervasyon ID");
             dgvRezervasyonlar.Columns.Add("MusteriID", "Müşteri ID");
             dgvRezervasyonlar.Columns.Add("OdaID", "Oda No");
             dgvRezervasyonlar.Columns.Add("GirisTarihi", "Giriş Tarihi");
             dgvRezervasyonlar.Columns.Add("CikisTarihi", "Çıkış Tarihi");
-            dgvRezervasyonlar.Columns.Add("Durum", "Rezervasyon Durumu");  // Başlığı değiştirdik
+            dgvRezervasyonlar.Columns.Add("Durum", "Rezervasyon Durumu");
             dgvRezervasyonlar.Columns.Add("ToplamTutar", "Toplam Tutar");
-
 
             // DataPropertyName ayarları
             dgvRezervasyonlar.Columns["RezervasyonID"].DataPropertyName = "RezervasyonID";
@@ -96,62 +159,56 @@ namespace OtelRezervasyonSistemi
             dgvRezervasyonlar.Columns["OdaID"].DataPropertyName = "OdaID";
             dgvRezervasyonlar.Columns["GirisTarihi"].DataPropertyName = "GirisTarihi";
             dgvRezervasyonlar.Columns["CikisTarihi"].DataPropertyName = "CikisTarihi";
-            dgvRezervasyonlar.Columns["Durum"].DataPropertyName = "DurumText";  // Yeni özelliği kullan
+            dgvRezervasyonlar.Columns["Durum"].DataPropertyName = "DurumText";
             dgvRezervasyonlar.Columns["ToplamTutar"].DataPropertyName = "ToplamTutar";
-            // DataGridView sütun ayarları
+
             dgvRezervasyonlar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            foreach (DataGridViewColumn column in dgvRezervasyonlar.Columns)
+
+            //DataGridView'ın  ayarları (musteri listesi)
+            dgvMusteriler.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMusteriler.MultiSelect = false;
+            dgvMusteriler.AutoGenerateColumns = false;
+            dgvMusteriler.ReadOnly = true;
+
+            // Sütunları ekle
+            dgvMusteriler.Columns.Clear(); // Önce mevcut sütunları temizle
+            dgvMusteriler.Columns.Add("MusteriID", "ID");
+            dgvMusteriler.Columns.Add("Ad", "Ad");
+            dgvMusteriler.Columns.Add("Soyad", "Soyad");
+            dgvMusteriler.Columns.Add("TCNo", "TC No");
+            dgvMusteriler.Columns.Add("Telefon", "Telefon");
+            dgvMusteriler.Columns.Add("Email", "Email");
+
+            //DataPropertyName ayarlar
+            dgvMusteriler.Columns["Ad"].DataPropertyName = "Ad";
+            dgvMusteriler.Columns["Soyad"].DataPropertyName = "Soyad";
+            dgvMusteriler.Columns["TCNo"].DataPropertyName = "TCNo";
+            dgvMusteriler.Columns["Telefon"].DataPropertyName = "Telefon";
+            dgvMusteriler.Columns["Email"].DataPropertyName = "Email";
+
+            // MusteriID sütununu gizle
+            dgvMusteriler.Columns["MusteriID"].Visible = false;
+
+            // Müşterileri listele
+            MusterileriListele();
+
+
+
+            // Faturaları listele
+            try
             {
-                switch (column.Name)
-                {
-                    case "RezervasyonID":
-                    case "MusteriID":
-                    case "OdaID":
-                    case "Durum":
-                        column.Width = 100;
-                        break;
-                    case "GirisTarihi":
-                    case "CikisTarihi":
-                        column.Width = 150;
-                        break;
-                }
+                OdalariListele();
+                RezervasyonlariListele();
+                FaturalariListele();
+                RezervasyonlariComboBoxaYukle();
             }
-            // Fatura DataGridView ayarları
-            dgvFaturalar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvFaturalar.MultiSelect = false;
-            dgvFaturalar.AutoGenerateColumns = false;
-            dgvFaturalar.Columns.Clear();
-
-            // Fatura sütunlarını ekle
-            dgvFaturalar.Columns.Add("FaturaID", "Fatura No");
-            dgvFaturalar.Columns.Add("MusteriAdi", "Müşteri Adı");
-            dgvFaturalar.Columns.Add("OdaNumarasi", "Oda No");
-            dgvFaturalar.Columns.Add("GirisTarihi", "Giriş Tarihi");
-            dgvFaturalar.Columns.Add("CikisTarihi", "Çıkış Tarihi");
-            dgvFaturalar.Columns.Add("ToplamTutar", "Toplam Tutar");
-            dgvFaturalar.Columns.Add("OdemeDurumu", "Ödeme Durumu");
-
-            // DataPropertyName ayarları
-            dgvFaturalar.Columns["FaturaID"].DataPropertyName = "FaturaID";
-            dgvFaturalar.Columns["MusteriAdi"].DataPropertyName = "MusteriAdi";
-            dgvFaturalar.Columns["OdaNumarasi"].DataPropertyName = "OdaNumarasi";
-            dgvFaturalar.Columns["GirisTarihi"].DataPropertyName = "GirisTarihi";
-            dgvFaturalar.Columns["CikisTarihi"].DataPropertyName = "CikisTarihi";
-            dgvFaturalar.Columns["ToplamTutar"].DataPropertyName = "ToplamTutar";
-            dgvFaturalar.Columns["OdemeDurumu"].DataPropertyName = "OdemeDurumu";
-
-
-            OdalariListele();
-            RezervasyonlariListele();
-            FaturalariListele();
-
-            RezervasyonlariComboBoxaYukle();
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Veriler yüklenirken hata oluştu: " + ex.Message);
+            }
         }
 
-
-
+      
         private void OdalariListele()
         {
             // OdaManager'dan tüm odaları alma ve DataGridView'da gösterme işlemi
@@ -278,6 +335,18 @@ namespace OtelRezervasyonSistemi
             else
             {
                 MessageBox.Show("Müşteri eklenirken bir hata oluştu.");
+            }
+            if (basarili)
+            {
+                MessageBox.Show("Müşteri başarıyla eklendi!");
+                MusterileriListele(); // Listeyi güncelle
+
+                // Form temizleme
+                txtAd.Clear();
+                txtSoyad.Clear();
+                txtTCNo.Clear();
+                txtTelefon.Clear();
+                txtEmail.Clear();
             }
         }
 
@@ -623,5 +692,76 @@ namespace OtelRezervasyonSistemi
             cmbRezervasyonlar.ValueMember = "RezervasyonID";
         }
 
+        private void btnMusteriİslemleri_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
+
+        private void btnOdaİslemleri_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 2;
+        }
+
+        private void btnRezervasyonİslemleri_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 3;
+        }
+
+        private void btnFaturalar_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 4;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Çıkış yapmak istediğinize emin misiniz?", "Çıkış",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+        private void MusterileriListele()
+        {
+            try
+            {
+                var musteriler = musteriManager.TumMusterileriGetir();
+                dgvMusteriler.DataSource = null;
+                dgvMusteriler.DataSource = musteriler;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Müşteriler listelenirken hata oluştu: " + ex.Message);
+            }
+        }
+
+        private void btnToHomeMusteriler_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabAnasayfa;
+        }
+
+        private void btnToHomeRezervasyon_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabAnasayfa;
+        }
+
+        private void btnToHomeOdalar_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabAnasayfa;
+        }
+
+        private void btnToHomeFaturalar_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabAnasayfa;
+        }
+
+        private void dgvRezervasyonlar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void lblMusteri_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

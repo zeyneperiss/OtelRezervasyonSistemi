@@ -59,6 +59,16 @@ namespace OtelRezervasyonSistemi
             if (e.CloseReason == CloseReason.UserClosing)
                 Application.Exit();
         }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblusername_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
